@@ -6,12 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.motorcontrol.MotorController;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -28,10 +24,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   XboxController c_xbox = new XboxController(0);
-  private TalonSRX d_backLeft = new TalonSRX(1);
-  private TalonSRX d_frontRight = new TalonSRX(2);
-  private TalonSRX d_backRight = new TalonSRX(3);
-  private TalonSRX leftMotors = new MotorControllerGroup(, );
+  public MotorGroup group = new MotorGroup(new TalonSRX[] {new TalonSRX(0)});
+  //private TalonSRX leftMotors = new MotorControllerGroup(, );
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
