@@ -24,7 +24,8 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   XboxController c_xbox = new XboxController(0);
-  public MotorGroup group = new MotorGroup(new TalonSRX[] {new TalonSRX(0)});
+  public MotorGroup left = new MotorGroup(new TalonSRX[] {new TalonSRX(0), new TalonSRX(RobotMap.MOTOR_PORT_LEFT)});
+  public MotorGroup right = new MotorGroup(new TalonSRX[] {new TalonSRX(2), new TalonSRX(3)});
   //private TalonSRX leftMotors = new MotorControllerGroup(, );
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -84,7 +85,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    left.set((c_xbox.getLeftX() - c_xbox.getLeftY()) * 0.1);
+    right.set((c_xbox.getLeftX() + c_xbox.getLeftY()) * 0.1);
+  }
 
   /** This function is called once when the robot is disabled. */
   @Override
