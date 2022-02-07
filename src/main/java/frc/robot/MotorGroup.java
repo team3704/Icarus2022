@@ -11,4 +11,5 @@ public class MotorGroup {
     public void set(double powerPercent) {
         for(BaseTalon motor : motors) motor.set(ControlMode.PercentOutput, powerPercent);
     }
+    // invert moters before getting passed into group (or keep a reference to them to invert later)
 }
