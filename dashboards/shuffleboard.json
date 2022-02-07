@@ -10,7 +10,39 @@
         "hgap": 16.0,
         "vgap": 16.0,
         "titleType": 0,
-        "tiles": {}
+        "tiles": {
+          "2,1": {
+            "size": [
+              2,
+              2
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Robot Input",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Number Bar",
+                  "_title": "Speed Left",
+                  "Range/Min": -1.0,
+                  "Range/Max": 1.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Num tick marks": 5,
+                  "Visuals/Show text": true
+                },
+                {
+                  "_type": "Number Bar",
+                  "_title": "Speed Right",
+                  "Range/Min": -1.0,
+                  "Range/Max": 1.0,
+                  "Range/Center": 0.0,
+                  "Visuals/Num tick marks": 5,
+                  "Visuals/Show text": true
+                }
+              ]
+            }
+          }
+        }
       }
     },
     {
@@ -28,9 +60,9 @@
     }
   ],
   "windowGeometry": {
-    "x": 0.0,
-    "y": 0.0,
-    "width": 1382.0,
-    "height": 824.0
+    "x": -6.400000095367432,
+    "y": -6.400000095367432,
+    "width": 1395.199951171875,
+    "height": 836.7999877929688
   }
 }
