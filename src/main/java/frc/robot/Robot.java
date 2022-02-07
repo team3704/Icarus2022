@@ -28,7 +28,11 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {}
+  public void robotPeriodic() {
+    // ive been programming way too many video games
+    Dashboard.update();
+    DriveTrain.update();
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select between different

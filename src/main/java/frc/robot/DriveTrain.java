@@ -9,12 +9,23 @@ public final class DriveTrain {
         left = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FL), new TalonSRX(RobotMap.MOTOR_PORT_BL)}),
         right = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FR), new TalonSRX(RobotMap.MOTOR_PORT_BR)});
 
+    // made driving properties into seperate variables
+    // change these to drive during autonomous!
+    public static double throttle = 0;
+    public static double turn = 0;
+    public static double power_left = 0;
+    public static double power_right = 0;
+    
     public static void arcadeDrive() {
-        left.set((IO.c_xbox.getLeftX() - IO.c_xbox.getLeftY()) * speed_l);
-        right.set((IO.c_xbox.getLeftX() + IO.c_xbox.getLeftY()) * speed_r);
+        throttle = IO.c_xbox.getLeftY();
+        turn     = IO.c_xbox.getLeftX();
     }
     public static void tankDrive() {
-        left.set(-IO.c_stick_left.getRawAxis(1) * speed_l);
-        right.set(-IO.c_stick_right.getRawAxis(1) * speed_r);
+        power_left  = IO.c_stick_left.getRawAxis(1);
+        power_right = IO.c_stick_right.getRawAxis(1);
+    }
+    public static void update() {
+        left .set(((power_left ) + (throttle - turn)) * speed_l);
+        right.set(((power_right) + (throttle + turn)) * speed_r);
     }
 }
