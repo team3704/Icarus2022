@@ -10,11 +10,9 @@ public class MotorGroup {
         this.motors = motors;
     }
     public void set(double powerPercent) {
-        for(BaseTalon motor : motors) {
-            motor.set(ControlMode.PercentOutput, powerPercent);
-        }
+        for(BaseTalon motor : motors) motor.set(ControlMode.PercentOutput, powerPercent);
     }
-    public void invert(int motorIndex) {
-        motors[motorIndex].setInverted(InvertType.InvertMotorOutput);
+    public void invert() {
+        for(BaseTalon motor : motors) motor.setInverted(InvertType.InvertMotorOutput);
     }
 }

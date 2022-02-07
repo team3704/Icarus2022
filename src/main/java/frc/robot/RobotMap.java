@@ -9,5 +9,5 @@ public class RobotMap {
 
         JOYSTICKL_PORT = 0,
         JOYSTICKR_PORT = 1,
-        XBOX_PORT = 2;
+        XBOX_PORT = 2; // xbox controller object has an enum for button ids!
 }
