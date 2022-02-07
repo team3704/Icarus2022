@@ -1,6 +1,6 @@
 package frc.robot;
 
-public class RobotMap {
+public final class RobotMap {
     public static final int 
         MOTOR_PORT_FL = 0, 
         MOTOR_PORT_BL = 1,

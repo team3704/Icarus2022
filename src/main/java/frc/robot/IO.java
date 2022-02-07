@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.*;
 
-public class IO {
+public final class IO {
     // define commonly used objects here
     public static final XboxController c_xbox = new XboxController(RobotMap.XBOX_PORT);
     public static final Joystick c_stick_left = new Joystick(RobotMap.JOYSTICKL_PORT);

@@ -2,7 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-public class DriveTrain {
+public final class DriveTrain {
     public static double speed_l = 0, speed_r = 0;
 
     public static MotorGroup 

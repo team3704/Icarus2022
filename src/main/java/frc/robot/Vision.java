@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.networktables.*;
 
-public class Vision {
+public final class Vision {
     private static NetworkTableInstance nti   = NetworkTableInstance.getDefault();
     private static NetworkTable nt            = nti.getTable("limelight");
     private static NetworkTableEntry
