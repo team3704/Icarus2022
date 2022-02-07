@@ -12,7 +12,4 @@ public class MotorGroup {
     public void set(double powerPercent) {
         for(BaseTalon motor : motors) motor.set(ControlMode.PercentOutput, powerPercent);
     }
-    public void invert() {
-        for(BaseTalon motor : motors) motor.setInverted(InvertType.InvertMotorOutput);
-    }
 }
