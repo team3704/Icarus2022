@@ -58,8 +58,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    DriveTrain.speed_l = IO.c_stick_left .getRawAxis(2);
-    DriveTrain.speed_r = IO.c_stick_right.getRawAxis(2);
+    DriveTrain.speed = IO.c_stick_right .getRawAxis(2) / -2 + 0.5;
     DriveTrain.tankDrive();
   }
 

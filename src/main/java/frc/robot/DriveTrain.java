@@ -3,7 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 public final class DriveTrain {
-    public static double speed_l = 0, speed_r = 0;
+    public static double speed = 0;
 
     public static MotorGroup 
         left = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FL), new TalonSRX(RobotMap.MOTOR_PORT_BL)}),
@@ -22,10 +22,10 @@ public final class DriveTrain {
     }
     public static void tankDrive() {
         power_left  = IO.c_stick_left.getRawAxis(1);
-        power_right = IO.c_stick_right.getRawAxis(1);
+        power_right = -IO.c_stick_right.getRawAxis(1);
     }
     public static void update() {
-        left .set(((power_left ) + (throttle - turn)) * speed_l);
-        right.set(((power_right) + (throttle + turn)) * speed_r);
+        left .set(((power_left ) + (throttle - turn)) * speed);
+        right.set(((power_right) + (throttle + turn)) * speed);
     }
 }
