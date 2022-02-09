@@ -60,6 +60,7 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     DriveTrain.speed = IO.c_stick_right .getRawAxis(2) / -2 + 0.5;
     DriveTrain.tankDrive();
+    // MagazineLoad.moveMotor();
   }
 
   /** This function is called once when the robot is disabled. */
