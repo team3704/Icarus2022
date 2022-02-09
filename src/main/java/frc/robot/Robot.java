@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.commands.MagazineLoad;
 
 /**
@@ -16,7 +17,7 @@ import frc.robot.commands.MagazineLoad;
 public class Robot extends TimedRobot {
   // instanciate commands
   private final MagazineLoad cmd_MagazineLoad = new MagazineLoad();
-
+  Timer t = new Timer();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -50,11 +51,24 @@ public class Robot extends TimedRobot {
    * chooser code above as well.
    */
   @Override
-  public void autonomousInit() {}
+  public void autonomousInit() {
+    
+    cmd_MagazineLoad.schedule();
+    t.reset();
+    t.start();
+  }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    if(t.get() < 5) {
+      cmd_MagazineLoad.input = 0;
+    } else if(t.get() < 10) {
+      cmd_MagazineLoad.input = 0.5;
+    } else {
+      cmd_MagazineLoad.input = 0;
+    }
+  }
 
   /** This function is called once when teleop is enabled. */
   @Override
@@ -63,7 +77,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    DriveTrain.speed = IO.c_stick_right .getRawAxis(2) / -2 + 0.5;
+    DriveTrain.speed = IO.c_stick_right.getRawAxis(2) / -2 + 0.5;
     DriveTrain.tankDrive();
   }
 
