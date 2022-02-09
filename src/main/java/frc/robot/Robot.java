@@ -5,6 +5,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.commands.MagazineLoad;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -13,6 +15,9 @@ import edu.wpi.first.wpilibj.TimedRobot;
  * project.
  */
 public class Robot extends TimedRobot {
+  // instanciate commands
+  private final MagazineLoad cmd_MagazineLoad = new MagazineLoad();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -29,7 +34,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    // ive been programming way too many video games
     Dashboard.update();
     DriveTrain.update();
   }
@@ -60,7 +64,6 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() {
     DriveTrain.speed = IO.c_stick_right .getRawAxis(2) / -2 + 0.5;
     DriveTrain.tankDrive();
-    // MagazineLoad.moveMotor();
   }
 
   /** This function is called once when the robot is disabled. */
