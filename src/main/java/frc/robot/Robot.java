@@ -33,6 +33,8 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    // these couldve been scheduled as commands (update() wouldve been replaced with execute())
+    // too late now unless we decide to refomat
     Dashboard.update();
     DriveTrain.update();
   }
