@@ -8,10 +8,13 @@ public class MagazineLoad extends CommandBase
 {
     MotorGroup IntakeMotors;
     public double input = 0;
-    @Override public void execute() {
-      IntakeMotors.set(input);
-    }
+
     public MagazineLoad() {
       IntakeMotors = new MotorGroup(new TalonSRX[] {new TalonSRX(5), new TalonSRX(2)});
     }
+    @Override public void execute() {
+      IntakeMotors.set(input);
+    }
+    @Override public void end(boolean interrupted) {}
+    @Override public boolean isFinished() { return false; }
 }
