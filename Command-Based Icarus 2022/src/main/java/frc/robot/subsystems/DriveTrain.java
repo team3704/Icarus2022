@@ -20,7 +20,7 @@ public class DriveTrain implements Subsystem {
 
     public final DifferentialDrive dd = new DifferentialDrive(mg_l, mg_r);
 
-    public double driveSpeed = 1;
+    public double driveSpeed = 0;
 
     @Override public void periodic() {
         dd.setMaxOutput(driveSpeed);

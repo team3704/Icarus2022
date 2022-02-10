@@ -16,6 +16,7 @@ public class TankDrive implements Command {
     public TankDrive(DriveTrain s0) {
         subsystems.add(s0); s_dt = s0;
     }
+    
     @Override public void execute() {
         double pl = MathUtil.applyDeadband(UserInput.j_FL.getY(), 0.1);
         double pr = MathUtil.applyDeadband(UserInput.j_FR.getY(), 0.1);
