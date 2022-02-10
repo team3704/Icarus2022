@@ -40,11 +40,16 @@ public class RobotContainer {
   public void changeState(RobotState s) {
     CommandScheduler.getInstance().cancelAll();
     ParallelCommandGroup cg = new ParallelCommandGroup();
-    // dashboard should be updated no matter which state
-    CommandScheduler.getInstance().schedule();
-
-    if (s == RobotState.Teleop) {
-      cg.addCommands(cmd_TankDrive);
+    switch (s) {
+      case Auto:
+        break;
+      case Teleop:
+        cg.addCommands(cmd_TankDrive);
+        break;
+      case Test:
+        break;
+      default:
+        break;
     }
     cg.schedule();
   }
