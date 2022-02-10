@@ -56,15 +56,12 @@ public class Sequencer {
                     function.finishAuton();
                 }
             }
-            while(t.get() < timeouts.get(i)) {
-                if(ended) return;
+            while(t.get() < timeouts.get(i) && !ended) {
                 for(Autonomous function : functions.get(i)) {
                     function.runAuton();
                 }
             }
         }
-        for(Autonomous function : functions.get(functions.size() - 1)) {
-            function.finishAuton();
-        }
+        end();
     }
 }
