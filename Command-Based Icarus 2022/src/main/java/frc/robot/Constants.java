@@ -25,4 +25,9 @@ public final class Constants {
         public static final int j_fr = 1;
         public static final int j_mx = 2;
     }
+    /** Subsystems for HashMaps or whatever */
+    public enum SH {
+        dt,
+        ui
+    }
 }
