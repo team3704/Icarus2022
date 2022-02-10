@@ -1,30 +1,30 @@
 package frc.robot.commands;
 
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.robot.Constants;
+import frc.robot.UserInput;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.UserInput;
 
 public class TankDrive implements Command {
-    HashMap<Constants.SH, Subsystem> subsystems = new HashMap<>();
-    UserInput s_ui;
+    Set<Subsystem> subsystems = new HashSet<>();
     DriveTrain s_dt;
 
-    public TankDrive(UserInput s0, DriveTrain s1) {
-        subsystems.put(Constants.SH.dt, s1); s_dt = s1;
-        subsystems.put(Constants.SH.ui, s0); s_ui = s0;
+    public TankDrive(DriveTrain s0) {
+        subsystems.add(s0); s_dt = s0;
     }
     @Override public void execute() {
-        double pl = s_ui.j_FL.getY();
-        double pr = s_ui.j_FR.getY();
+        double pl = MathUtil.applyDeadband(UserInput.j_FL.getY(), 0.1);
+        double pr = MathUtil.applyDeadband(UserInput.j_FR.getY(), 0.1);
+        s_dt.driveSpeed = (UserInput.j_FR.getZ() + 1) / -2.0d;
         s_dt.dd.tankDrive(pl, pr);
     }
     @Override public void end(boolean interrupted) {
         s_dt.dd.tankDrive(0, 0);
     }
-    @Override public Set<Subsystem> getRequirements() { return (Set<Subsystem>) subsystems.values(); }
+    @Override public Set<Subsystem> getRequirements() { return subsystems; }
+    @Override public boolean isFinished() { return false; }
 }

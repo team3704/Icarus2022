@@ -5,9 +5,9 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.UserInput;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,14 +17,15 @@ import frc.robot.subsystems.UserInput;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain sub_DriveTrain = new DriveTrain();
-  private final UserInput  sub_UserInput  = new UserInput();
+  private final DriveTrain       sub_DriveTrain       = new DriveTrain      ();
 
-  private final TankDrive cmd_TankDrive = new TankDrive(sub_UserInput, sub_DriveTrain);
+  private final TankDrive        cmd_TankDrive        = new TankDrive       (sub_DriveTrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     
+    // add subsystems to the scheduler
+    CommandScheduler.getInstance().registerSubsystem(sub_DriveTrain);
   }
 
   public enum RobotState {
@@ -38,13 +39,13 @@ public class RobotContainer {
    */
   public void changeState(RobotState s) {
     CommandScheduler.getInstance().cancelAll();
-    switch (s) {
-      case Auto:
-      break; case Teleop:
-        cmd_TankDrive.schedule();
-      break; case Test:
-      break; default:
-      break;
+    ParallelCommandGroup cg = new ParallelCommandGroup();
+    // dashboard should be updated no matter which state
+    CommandScheduler.getInstance().schedule();
+
+    if (s == RobotState.Teleop) {
+      cg.addCommands(cmd_TankDrive);
     }
+    cg.schedule();
   }
 }
