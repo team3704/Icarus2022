@@ -13,12 +13,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    // IO Ports will be defined within this subclass
+    /** IO Ports will be defined within this subclass */
     public static final class IO {
         // gearbox motor pairs have primary first, then secondary
-        public static final int[] m_dl  = new int[] {0, 0};
+        public static final int[] m_dl = new int[] {0, 0};
         public static final int[] m_dr = new int[] {0, 0};
     }
+    /** USB Order */
     public static final class USB {
         public static final int j_fl = 0;
         public static final int j_fr = 1;
