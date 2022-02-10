@@ -22,7 +22,7 @@
               "_title": "Drive Speed",
               "Range/Min": 0.0,
               "Range/Max": 1.0,
-              "Visuals/Show value": false
+              "Visuals/Show value": true
             }
           },
           "13,4": {
@@ -105,9 +105,9 @@
     }
   ],
   "windowGeometry": {
-    "x": -7.199999809265137,
-    "y": -7.199999809265137,
-    "width": 2062.39990234375,
-    "height": 1126.4000244140625
+    "x": 49.599998474121094,
+    "y": 144.8000030517578,
+    "width": 1048.800048828125,
+    "height": 778.4000244140625
   }
 }

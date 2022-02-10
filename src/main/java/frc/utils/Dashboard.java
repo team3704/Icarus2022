@@ -1,6 +1,7 @@
-package frc.robot;
+package frc.utils;
 
 import edu.wpi.first.wpilibj.smartdashboard.*;
+import frc.robot.DriveTrain;
 
 // use this class to communitcate with Shuffleboard
 // layouts saved in Icarus2022/dashboards

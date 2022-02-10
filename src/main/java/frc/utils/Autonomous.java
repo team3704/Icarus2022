@@ -1,7 +1,10 @@
 package frc.utils;
 
 public interface Autonomous {
-    public default void initAuton() {}
+    default void initAuton() {}
     public void runAuton();
+    /**
+     * Must end all processes or movements in this method
+     */
     public void finishAuton();
 }

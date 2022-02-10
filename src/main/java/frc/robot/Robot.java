@@ -5,8 +5,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Timer;
 import frc.robot.commands.MagazineLoad;
+import frc.utils.Dashboard;
+import frc.utils.IO;
+import frc.utils.Sequencer;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -17,13 +19,15 @@ import frc.robot.commands.MagazineLoad;
 public class Robot extends TimedRobot {
   // instanciate commands
   private final MagazineLoad cmd_MagazineLoad = new MagazineLoad();
-  Timer t = new Timer();
+  Sequencer autonomousSequence = new Sequencer();
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
   @Override
-  public void robotInit() {}
+  public void robotInit() {
+    autonomousSequence.addCommand(cmd_MagazineLoad, 5);
+  }
 
   /**
    * This function is called every robot packet, no matter the mode. Use this for items like
@@ -51,29 +55,19 @@ public class Robot extends TimedRobot {
    * chooser code above as well.
    */
   @Override
-  public void autonomousInit() {
-    
-    cmd_MagazineLoad.schedule();
-    t.reset();
-    t.start();
+  public void autonomousInit() { 
+    autonomousSequence.start(4);
   }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    if(t.get() < 5) {
-      cmd_MagazineLoad.input = 0;
-    } else if(t.get() < 10) {
-      cmd_MagazineLoad.input = 0.5;
-    } else {
-      cmd_MagazineLoad.input = 0;
-    }
   }
 
   /** This function is called once when teleop is enabled. */
   @Override
   public void teleopInit() {
-    cmd_MagazineLoad.end(true);
+    autonomousSequence.end();
   }
 
   /** This function is called periodically during operator control. */

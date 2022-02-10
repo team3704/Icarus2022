@@ -2,14 +2,15 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import frc.utils.IO;
 import frc.utils.MotorGroup;
 
 public final class DriveTrain {
     public static double speed = 0;
 
     public static MotorGroup 
-        left = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FL), new TalonSRX(RobotMap.MOTOR_PORT_BL)}),
-        right = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FR), new TalonSRX(RobotMap.MOTOR_PORT_BR)});
+        left = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FL), new TalonSRX(6)}),
+        right = new MotorGroup(new TalonSRX[] {new TalonSRX(RobotMap.MOTOR_PORT_FR), new TalonSRX(1)});
 
     // made driving properties into seperate variables
     // change these to drive during autonomous!

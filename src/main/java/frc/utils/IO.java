@@ -1,6 +1,7 @@
-package frc.robot;
+package frc.utils;
 
 import edu.wpi.first.wpilibj.*;
+import frc.robot.RobotMap;
 
 public final class IO {
     // define commonly used objects here
