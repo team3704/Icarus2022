@@ -12,7 +12,7 @@ public class Sequencer {
 
     /**
      * @param cmd A commands that will execute in it's order in the sequencers list
-     * @param time The amount of time until the autonomous function runs *after* the function(s) before it finishes running, if any
+     * @param time The amount of time that the autonomous function runs for
      */
     public void addCommand(Autonomous cmd, double time) {
         functions.add(new Autonomous[]{cmd});
@@ -21,7 +21,7 @@ public class Sequencer {
 
     /**
      * @param cmds A group of commands that will all execute simultaneously in their order in the sequencers list
-     * @param time The amount of time until the autonomous functions run *after* the function(s) before it finishes running, if any
+     * @param time The amount of time that the autonomous functions run for
      */
     public void addCommand(Autonomous[] cmds, double time) {
         functions.add(cmds);
