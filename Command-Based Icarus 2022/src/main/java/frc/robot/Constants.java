@@ -16,7 +16,12 @@ public final class Constants {
     // IO Ports will be defined within this subclass
     public static final class IOPorts {
         // gearbox motor pairs have primary first, then secondary
-        public static int[] mpDirveLeft  = new int[] {0, 0};
-        public static int[] mpDirveRight = new int[] {0, 0};
+        public static final int[] mpDirveLeft  = new int[] {0, 0};
+        public static final int[] mpDirveRight = new int[] {0, 0};
+    }
+    public static final class JoystickUSB {
+        public static final int FlightStickLeft = 0;
+        public static final int FlightStickRight = 1;
+        public static final int ManipulationXboxController = 2;
     }
 }
