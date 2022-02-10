@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 
 public class UserInput implements Subsystem {
-    public Joystick jFlightLeft = new Joystick(Constants.JoystickUSB.FlightStickLeft);
-    public Joystick jFlightRight = new Joystick(Constants.JoystickUSB.FlightStickRight);
-    public XboxController xManipulate = new XboxController(Constants.JoystickUSB.ManipulationXboxController);
-
-    
+    public Joystick j_FL = new Joystick(Constants.USB.j_fl);
+    public Joystick j_FR = new Joystick(Constants.USB.j_fr);
+    public XboxController j_M = new XboxController(Constants.USB.j_mx);
 }

@@ -12,14 +12,19 @@ public class TankDrive implements Command {
     private final Set<Subsystem> requirements = new HashSet<>();
     private final UserInput ui;
     private final DriveTrain dt;
+
     public TankDrive(UserInput s0, DriveTrain s1) {
         ui = s0; dt = s1;
         requirements.add(s0);
         requirements.add(s1);
     }
     @Override public void execute() {
-        double power_left = ui.jFlightLeft.getY();
-        double power_right = ui.jFlightRight.getY();
+        double pl = ui.j_FL.getY();
+        double pr = ui.j_FR.getY();
+        dt.dd.tankDrive(pl, pr);
+    }
+    @Override public void end(boolean interrupted) {
+        dt.dd.tankDrive(0, 0);
     }
     @Override public Set<Subsystem> getRequirements() { return requirements; }
 }

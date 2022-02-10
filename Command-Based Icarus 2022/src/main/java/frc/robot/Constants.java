@@ -14,14 +14,14 @@ package frc.robot;
  */
 public final class Constants {
     // IO Ports will be defined within this subclass
-    public static final class IOPorts {
+    public static final class IO {
         // gearbox motor pairs have primary first, then secondary
-        public static final int[] mpDirveLeft  = new int[] {0, 0};
-        public static final int[] mpDirveRight = new int[] {0, 0};
+        public static final int[] m_dl  = new int[] {0, 0};
+        public static final int[] m_dr = new int[] {0, 0};
     }
-    public static final class JoystickUSB {
-        public static final int FlightStickLeft = 0;
-        public static final int FlightStickRight = 1;
-        public static final int ManipulationXboxController = 2;
+    public static final class USB {
+        public static final int j_fl = 0;
+        public static final int j_fr = 1;
+        public static final int j_mx = 2;
     }
 }
