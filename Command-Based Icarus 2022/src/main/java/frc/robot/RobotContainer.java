@@ -6,6 +6,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoDrive;
 import frc.robot.commands.SetLL;
 import frc.robot.commands.TankDrive;
@@ -55,8 +57,11 @@ public class RobotContainer {
     switch (s) {
       case Auto:
         cg.addCommands(
-          generateAutoDriveCommand(1, 0, -0.5),
-          generateAutoDriveCommand(1, 0,  0.5)
+          new SequentialCommandGroup(
+            new WaitCommand(5),
+            generateAutoDriveCommand(1, 0, -0.5),
+            generateAutoDriveCommand(1, 0,  0.5)
+          )
         );
         break;
       case Teleop:
