@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoDrive;
-import frc.robot.commands.LLLeds;
+import frc.robot.commands.SetLL;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Limelight;
@@ -31,10 +31,12 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     UserInput.b_MX
-      .whenPressed (new LLLeds(sub_Limelight, 1))
-      .whenReleased(new LLLeds(sub_Limelight, 0));
+      .whenPressed (new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1))
+      .whenReleased(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 0));
     UserInput.b_MA.whenPressed(generateAutoDriveCommand(1,  0.5, 0));
     UserInput.b_MB.whenPressed(generateAutoDriveCommand(1, -0.5, 0));
+    UserInput.b_ML.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
+    UserInput.b_MR.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 0));
   }
 
   private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
@@ -56,14 +58,7 @@ public class RobotContainer {
     switch (s) {
       case Auto:
         cg.addCommands(
-          new WaitCommand(5),
-          new LLLeds(sub_Limelight, 1),
-          new WaitCommand(5),
-          new LLLeds(sub_Limelight, 2),
-          new WaitCommand(5),
-          new LLLeds(sub_Limelight, 3),
-          new WaitCommand(5),
-          new LLLeds(sub_Limelight, 0)
+          
         );
         break;
       case Teleop:
