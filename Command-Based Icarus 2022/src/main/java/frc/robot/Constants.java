@@ -16,8 +16,8 @@ public final class Constants {
     /** IO Ports will be defined within this subclass */
     public static final class IO {
         // gearbox motor pairs have primary first, then secondary
-        public static final int[] m_dl = new int[] {0, 0};
-        public static final int[] m_dr = new int[] {0, 0};
+        public static final int[] m_dl = new int[] {2, 1};
+        public static final int[] m_dr = new int[] {6, 5};
     }
     /** USB Order */
     public static final class USB {

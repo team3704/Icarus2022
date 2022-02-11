@@ -6,6 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.commands.AutoDrive;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 
@@ -17,15 +20,17 @@ import frc.robot.subsystems.DriveTrain;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain       sub_DriveTrain       = new DriveTrain      ();
+  private final DriveTrain sub_DriveTrain = new DriveTrain();
 
-  private final TankDrive        cmd_TankDrive        = new TankDrive       (sub_DriveTrain);
+  private final TankDrive  cmd_TankDrive  = new TankDrive (sub_DriveTrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-    
-    // add subsystems to the scheduler
-    CommandScheduler.getInstance().registerSubsystem(sub_DriveTrain);
+
+  }
+
+  private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
+    return new AutoDrive(sub_DriveTrain, throttle, turn, time);
   }
 
   public enum RobotState {
@@ -42,6 +47,28 @@ public class RobotContainer {
     ParallelCommandGroup cg = new ParallelCommandGroup();
     switch (s) {
       case Auto:
+        cg.addCommands(
+          new SequentialCommandGroup(
+            new WaitCommand(5),
+            generateAutoDriveCommand(2, 0, -0.5),
+            generateAutoDriveCommand(1, 0, 0.5),
+            generateAutoDriveCommand(2, 0, -0.1),
+            generateAutoDriveCommand(1, 0, -0.5),
+            generateAutoDriveCommand(0.9, 0, 0.5),
+            generateAutoDriveCommand(5, 0, -0.5),
+            generateAutoDriveCommand(2, 0, 0.5),
+            generateAutoDriveCommand(0.1, 0, -0.25),
+            generateAutoDriveCommand(6, 0, -0.25),
+            generateAutoDriveCommand(2, 0, 0.5),
+            generateAutoDriveCommand(0.75, 0, -0.5),
+            generateAutoDriveCommand(0.5, 0, 0.25),
+            generateAutoDriveCommand(2, 0, 0.5),
+            generateAutoDriveCommand(0.2, 0, 0.5),
+            generateAutoDriveCommand(2, 0, 0.25),
+            generateAutoDriveCommand(0.25, 0, -0.5),
+            generateAutoDriveCommand(1, 0, 0.5)
+          )
+        );
         break;
       case Teleop:
         cg.addCommands(cmd_TankDrive);
@@ -52,5 +79,8 @@ public class RobotContainer {
         break;
     }
     cg.schedule();
+
+    // add subsystems to the scheduler
+    CommandScheduler.getInstance().registerSubsystem(sub_DriveTrain);
   }
 }
