@@ -13,13 +13,13 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    /** IO Ports will be defined within this subclass */
+    /** RoboRIO IO Device Ports will be defined within this subclass */
     public static final class IO {
-        // gearbox motor pairs have primary first, then secondary
+        // gearbox motor pairs have primary (master) first, then secondary (slave).
         public static final int[] m_dl = new int[] {2, 1};
         public static final int[] m_dr = new int[] {6, 5};
     }
-    /** USB Order */
+    /** USB Order for Joysticks and misc. USB devices. */
     public static final class USB {
         public static final int j_fl = 0;
         public static final int j_fr = 1;
