@@ -53,31 +53,39 @@ public class RobotContainer {
    */
   public void changeState(RobotState s) {
     CommandScheduler.getInstance().cancelAll();
-    ParallelCommandGroup cg = new ParallelCommandGroup();
-    switch (s) {
-      case Auto:
-        cg.addCommands(
-          new SequentialCommandGroup(
-            new WaitCommand(5),
-            generateAutoDriveCommand(1, 0, -0.5),
-            generateAutoDriveCommand(1, 0,  0.5)
-          )
-        );
-        break;
-      case Teleop:
-        cg.addCommands(cmd_TankDrive);
-        break;
-      case Test:
-        break;
-      default:
-        break;
+    if (s == null) {
+      System.out.println("RobotState set to null (disabled)");
+    } else {
+      ParallelCommandGroup cg = new ParallelCommandGroup();
+      switch (s) {
+        case Auto:
+          cg.addCommands(
+            new SequentialCommandGroup(
+              new WaitCommand(5),
+              // drive test sequence
+              generateAutoDriveCommand(0.2,  0, -1), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2,  0,  1), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2, -1,  0), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2,  1,  0), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2, -1, -1), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2,  1,  1), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2, -1,  1), new WaitCommand(0.2),
+              generateAutoDriveCommand(0.2,  1, -1)
+            )
+          );
+          break;
+        case Teleop:
+          cg.addCommands(cmd_TankDrive);
+          break;
+        case Test:
+          break;
+      }
+      cg.schedule();
+      // add subsystems to the scheduler (in case they were removed)
+      CommandScheduler.getInstance().registerSubsystem(
+        sub_Limelight,
+        sub_DriveTrain
+      );
     }
-    cg.schedule();
-
-    // add subsystems to the scheduler (in case they were removed)
-    CommandScheduler.getInstance().registerSubsystem(
-      sub_Limelight,
-      sub_DriveTrain
-    );
   }
 }

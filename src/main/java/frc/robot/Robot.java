@@ -15,7 +15,7 @@ import frc.robot.RobotContainer.RobotState;
  * project.
  */
 public class Robot extends TimedRobot {
-  private RobotContainer m_robotContainer;
+  private RobotContainer rc;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -23,9 +23,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
-    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    // Instantiate our RobotContainer.  This will perform all our button bindings,
+    // and do pretty much everything else lol.
+    rc = new RobotContainer();
   }
 
   /**
@@ -35,44 +35,15 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
-  @Override
-  public void robotPeriodic() {
-    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-    // commands, running already-scheduled commands, removing finished or interrupted commands,
-    // and running subsystem periodic() methods.  This must be called from the robot's periodic
-    // block in order for anything in the Command-based framework to work.
-    CommandScheduler.getInstance().run();
-  }
+  @Override public void robotPeriodic() { CommandScheduler.getInstance().run(); }
 
-  /** This function is called once each time the robot enters Disabled mode. */
-  @Override
-  public void disabledInit() {}
+  @Override public void disabledInit   () { rc.changeState(null              ); }
+  @Override public void autonomousInit () { rc.changeState(RobotState.Auto   ); }
+  @Override public void teleopInit     () { rc.changeState(RobotState.Teleop ); }
+  @Override public void testInit       () { rc.changeState(RobotState.Test   ); }
 
-  @Override
-  public void disabledPeriodic() {}
-
-  /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
-  @Override
-  public void autonomousInit() {
-    m_robotContainer.changeState(RobotState.Auto);
-  }
-
-  /** This function is called periodically during autonomous. */
-  @Override
-  public void autonomousPeriodic() {}
-
-  @Override
-  public void teleopInit() { m_robotContainer.changeState(RobotState.Teleop); }
-
-  /** This function is called periodically during operator control. */
-  @Override
-  public void teleopPeriodic() {}
-
-  @Override
-  public void testInit() {
-  }
-
-  /** This function is called periodically during test mode. */
-  @Override
-  public void testPeriodic() {}
+  @Override public void disabledPeriodic() {}
+  @Override public void autonomousPeriodic() {}
+  @Override public void teleopPeriodic() {}
+  @Override public void testPeriodic() {}
 }

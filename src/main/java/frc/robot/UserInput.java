@@ -11,10 +11,12 @@ public class UserInput {
     public static final Joystick j_M  = new Joystick(Constants.USB.j_mx);
 
     public static final JoystickButton // Instanciate the buttons for the xbox controller
-        b_MA = new JoystickButton(j_M, XboxController.Button.kA.value),
-        b_MB = new JoystickButton(j_M, XboxController.Button.kB.value),
-        b_MX = new JoystickButton(j_M, XboxController.Button.kX.value),
-        b_MY = new JoystickButton(j_M, XboxController.Button.kY.value),
-        b_ML = new JoystickButton(j_M, XboxController.Button.kLeftBumper.value),
-        b_MR = new JoystickButton(j_M, XboxController.Button.kRightBumper.value);
+        b_MA  = new JoystickButton(j_M, XboxController.Button.kA.value),
+        b_MB  = new JoystickButton(j_M, XboxController.Button.kB.value),
+        b_MX  = new JoystickButton(j_M, XboxController.Button.kX.value),
+        b_MY  = new JoystickButton(j_M, XboxController.Button.kY.value),
+        b_ML  = new JoystickButton(j_M, XboxController.Button.kLeftBumper.value),
+        b_MR  = new JoystickButton(j_M, XboxController.Button.kRightBumper.value),
+        b_MSL = new JoystickButton(j_M, XboxController.Button.kLeftStick.value),
+        b_MSR = new JoystickButton(j_M, XboxController.Button.kRightStick.value);
 }
