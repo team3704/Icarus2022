@@ -14,15 +14,13 @@ public class DriveTrain extends SubsystemBase {
     private final MotorController m_l1 = new WPI_TalonSRX(Constants.IO.m_dl[1]);
     private final MotorController m_r0 = new WPI_TalonSRX(Constants.IO.m_dr[0]);
     private final MotorController m_r1 = new WPI_TalonSRX(Constants.IO.m_dr[1]);
-
     private final MotorControllerGroup mg_l = new MotorControllerGroup(m_l0, m_l1);
     private final MotorControllerGroup mg_r = new MotorControllerGroup(m_r0, m_r1);
-
     public final DifferentialDrive dd = new DifferentialDrive(mg_l, mg_r);
 
     public DriveTrain() {
-        m_r0.setInverted(true);
-        m_r1.setInverted(true);
+        mg_r.setInverted(true);
+        dd.setSafetyEnabled(false); // oof
     }
 
     public double driveSpeed = 1;

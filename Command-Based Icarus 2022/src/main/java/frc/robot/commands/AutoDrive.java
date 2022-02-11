@@ -6,9 +6,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class AutoDrive extends CommandBase {
     DriveTrain s_dt;
-
     Timer moveTimer = new Timer();
-    
     double th, turn, time;
     
     public AutoDrive(DriveTrain s0, double x, double z, double t) {
@@ -26,12 +24,10 @@ public class AutoDrive extends CommandBase {
 
     @Override public void end(boolean interrupted) {
         moveTimer.stop();
-        s_dt.dd.arcadeDrive(0, 0);
-        System.out.println("STOP");
+        s_dt.dd.tankDrive(0, 0);
     }
     @Override public void execute() {
         s_dt.dd.arcadeDrive(th, turn);
-        System.out.print("moving...");
     }
     @Override
     public boolean isFinished() {

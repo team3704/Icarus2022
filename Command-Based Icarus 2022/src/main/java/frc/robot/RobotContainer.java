@@ -4,13 +4,16 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.AutoDrive;
+import frc.robot.commands.LLLeds;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Limelight;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,12 +24,17 @@ import frc.robot.subsystems.DriveTrain;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain sub_DriveTrain = new DriveTrain();
+  private final Limelight  sub_Limelight  = new Limelight();
 
   private final TankDrive  cmd_TankDrive  = new TankDrive (sub_DriveTrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
-
+    UserInput.b_MX
+      .whenPressed (new LLLeds(sub_Limelight, 1))
+      .whenReleased(new LLLeds(sub_Limelight, 0));
+    UserInput.b_MA.whenPressed(generateAutoDriveCommand(1,  0.5, 0));
+    UserInput.b_MB.whenPressed(generateAutoDriveCommand(1, -0.5, 0));
   }
 
   private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
@@ -48,26 +56,14 @@ public class RobotContainer {
     switch (s) {
       case Auto:
         cg.addCommands(
-          new SequentialCommandGroup(
-            new WaitCommand(5),
-            generateAutoDriveCommand(2, 0, -0.5),
-            generateAutoDriveCommand(1, 0, 0.5),
-            generateAutoDriveCommand(2, 0, -0.1),
-            generateAutoDriveCommand(1, 0, -0.5),
-            generateAutoDriveCommand(0.9, 0, 0.5),
-            generateAutoDriveCommand(5, 0, -0.5),
-            generateAutoDriveCommand(2, 0, 0.5),
-            generateAutoDriveCommand(0.1, 0, -0.25),
-            generateAutoDriveCommand(6, 0, -0.25),
-            generateAutoDriveCommand(2, 0, 0.5),
-            generateAutoDriveCommand(0.75, 0, -0.5),
-            generateAutoDriveCommand(0.5, 0, 0.25),
-            generateAutoDriveCommand(2, 0, 0.5),
-            generateAutoDriveCommand(0.2, 0, 0.5),
-            generateAutoDriveCommand(2, 0, 0.25),
-            generateAutoDriveCommand(0.25, 0, -0.5),
-            generateAutoDriveCommand(1, 0, 0.5)
-          )
+          new WaitCommand(5),
+          new LLLeds(sub_Limelight, 1),
+          new WaitCommand(5),
+          new LLLeds(sub_Limelight, 2),
+          new WaitCommand(5),
+          new LLLeds(sub_Limelight, 3),
+          new WaitCommand(5),
+          new LLLeds(sub_Limelight, 0)
         );
         break;
       case Teleop:
@@ -80,7 +76,10 @@ public class RobotContainer {
     }
     cg.schedule();
 
-    // add subsystems to the scheduler
-    CommandScheduler.getInstance().registerSubsystem(sub_DriveTrain);
+    // add subsystems to the scheduler (in case they were removed)
+    CommandScheduler.getInstance().registerSubsystem(
+      sub_Limelight,
+      sub_DriveTrain
+    );
   }
 }
