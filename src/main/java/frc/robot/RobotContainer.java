@@ -4,15 +4,10 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.AutoDrive;
-import frc.robot.commands.SetLL;
-import frc.robot.commands.TankDrive;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Limelight;
+import edu.wpi.first.wpilibj2.command.*;
+
+import frc.robot.commands.*;
+import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -24,6 +19,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final DriveTrain sub_DriveTrain = new DriveTrain();
   private final Limelight  sub_Limelight  = new Limelight();
+  private final Pneumatics sub_Pneumatics = new Pneumatics();
 
   private final TankDrive  cmd_TankDrive  = new TankDrive (sub_DriveTrain);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -84,7 +80,8 @@ public class RobotContainer {
       // add subsystems to the scheduler (in case they were removed)
       CommandScheduler.getInstance().registerSubsystem(
         sub_Limelight,
-        sub_DriveTrain
+        sub_DriveTrain,
+        sub_Pneumatics
       );
     }
   }

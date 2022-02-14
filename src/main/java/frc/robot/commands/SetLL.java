@@ -16,9 +16,7 @@ public class SetLL extends InstantCommand {
 		value = n;
 	}
 
-	@Override
-	public void execute() {
+	@Override public void execute() {
 		
-	}
-	
+	}	
 }
