@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.wpilibj2.command.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -21,6 +24,8 @@ public class RobotContainer {
   private final Pneumatics sub_Pneumatics = new Pneumatics();
 
   private final TankDrive  cmd_TankDrive  = new TankDrive (sub_DriveTrain);
+
+  private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -31,6 +36,24 @@ public class RobotContainer {
     UserInput.b_MB.whenPressed(generateAutoDriveCommand(1, -0.5, 0));
     UserInput.b_ML.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
     UserInput.b_MR.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 0));
+    // Setup command groups
+    stateComands.put(RobotState.Auto, new ParallelCommandGroup(
+      new SequentialCommandGroup(
+        new WaitCommand(5),
+        // drive test sequence
+        generateAutoDriveCommand(0.25,  0, -1), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25,  0,  1), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25, -1,  0), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25,  1,  0), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25, -1, -1), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25,  1,  1), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25, -1,  1), new WaitCommand(0.25),
+        generateAutoDriveCommand(0.25,  1, -1)
+      )
+    ));
+    stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
+      cmd_TankDrive
+    ));
   }
 
   private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
@@ -48,42 +71,18 @@ public class RobotContainer {
    * @param s The state to set
    */
   public void changeState(RobotState s) {
-    CommandScheduler.getInstance().cancelAll();
-    ParallelCommandGroup.clearGroupedCommands();
+    mainCommand.cancel();
     if (s == null) {
-      System.out.println("RobotState set to null (disabled)");
+      System.out.println("Robot disabled. (state = null)");
     } else {
-      double d = 0.5;
-      switch (s) {
-        case Auto:
-          mainCommand.addCommands(
-            new SequentialCommandGroup(
-              new WaitCommand(5),
-              // drive test sequence
-              generateAutoDriveCommand(d,  0, -1), new WaitCommand(d),
-              generateAutoDriveCommand(d,  0,  1), new WaitCommand(d),
-              generateAutoDriveCommand(d, -1,  0), new WaitCommand(d),
-              generateAutoDriveCommand(d,  1,  0), new WaitCommand(d),
-              generateAutoDriveCommand(d, -1, -1), new WaitCommand(d),
-              generateAutoDriveCommand(d,  1,  1), new WaitCommand(d),
-              generateAutoDriveCommand(d, -1,  1), new WaitCommand(d),
-              generateAutoDriveCommand(d,  1, -1)
-            )
-          );
-          break;
-        case Teleop:
-          mainCommand.addCommands(cmd_TankDrive);
-          break;
-        case Test:
-          break;
-      }
+      mainCommand = stateComands.get(s);
       mainCommand.schedule();
-      // add subsystems to the scheduler (in case they were removed)
-      CommandScheduler.getInstance().registerSubsystem(
-        sub_Limelight,
-        sub_DriveTrain,
-        sub_Pneumatics
-      );
     }
+    // add subsystems to the scheduler (in case they were removed)
+    CommandScheduler.getInstance().registerSubsystem(
+      sub_Limelight,
+      sub_DriveTrain,
+      sub_Pneumatics
+    );
   }
 }
