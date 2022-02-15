@@ -29,13 +29,8 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //#region Configure the button bindings
-    UserInput.b_MX
-      .whenPressed (new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1))
-      .whenReleased(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 0));
-    UserInput.b_MA.whenPressed(generateAutoDriveCommand(1,  0.5, 0));
-    UserInput.b_MB.whenPressed(generateAutoDriveCommand(1, -0.5, 0));
-    UserInput.b_ML.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
-    UserInput.b_MR.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 0));
+    UserInput.b_MX.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
+    UserInput.b_MY.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1));
     //#endregion
     //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(
