@@ -17,6 +17,6 @@ public class SetLL extends InstantCommand {
 	}
 
 	@Override public void execute() {
-		
+		entry.setNumber(value);
 	}	
 }

@@ -5,7 +5,6 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.*;
-
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 
@@ -43,40 +42,42 @@ public class RobotContainer {
     Auto,
     Test
   }
+  private ParallelCommandGroup mainCommand = new ParallelCommandGroup();
   /**
    * Sets up the commands and subsystems for each state
    * @param s The state to set
    */
   public void changeState(RobotState s) {
     CommandScheduler.getInstance().cancelAll();
+    ParallelCommandGroup.clearGroupedCommands();
     if (s == null) {
       System.out.println("RobotState set to null (disabled)");
     } else {
-      ParallelCommandGroup cg = new ParallelCommandGroup();
+      double d = 0.5;
       switch (s) {
         case Auto:
-          cg.addCommands(
+          mainCommand.addCommands(
             new SequentialCommandGroup(
               new WaitCommand(5),
               // drive test sequence
-              generateAutoDriveCommand(0.2,  0, -1), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2,  0,  1), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2, -1,  0), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2,  1,  0), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2, -1, -1), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2,  1,  1), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2, -1,  1), new WaitCommand(0.2),
-              generateAutoDriveCommand(0.2,  1, -1)
+              generateAutoDriveCommand(d,  0, -1), new WaitCommand(d),
+              generateAutoDriveCommand(d,  0,  1), new WaitCommand(d),
+              generateAutoDriveCommand(d, -1,  0), new WaitCommand(d),
+              generateAutoDriveCommand(d,  1,  0), new WaitCommand(d),
+              generateAutoDriveCommand(d, -1, -1), new WaitCommand(d),
+              generateAutoDriveCommand(d,  1,  1), new WaitCommand(d),
+              generateAutoDriveCommand(d, -1,  1), new WaitCommand(d),
+              generateAutoDriveCommand(d,  1, -1)
             )
           );
           break;
         case Teleop:
-          cg.addCommands(cmd_TankDrive);
+          mainCommand.addCommands(cmd_TankDrive);
           break;
         case Test:
           break;
       }
-      cg.schedule();
+      mainCommand.schedule();
       // add subsystems to the scheduler (in case they were removed)
       CommandScheduler.getInstance().registerSubsystem(
         sub_Limelight,
