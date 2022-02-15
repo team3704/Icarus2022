@@ -28,7 +28,7 @@ public class RobotContainer {
   private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
+    //#region Configure the button bindings
     UserInput.b_MX
       .whenPressed (new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1))
       .whenReleased(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 0));
@@ -36,7 +36,8 @@ public class RobotContainer {
     UserInput.b_MB.whenPressed(generateAutoDriveCommand(1, -0.5, 0));
     UserInput.b_ML.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
     UserInput.b_MR.whenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 0));
-    // Setup command groups
+    //#endregion
+    //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(
       new SequentialCommandGroup(
         new WaitCommand(5),
@@ -54,6 +55,7 @@ public class RobotContainer {
     stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
       cmd_TankDrive
     ));
+    //#endregion
   }
 
   private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
