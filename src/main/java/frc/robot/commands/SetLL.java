@@ -17,6 +17,4 @@ public class SetLL extends CommandBase {
 	@Override public void initialize() { ov = e.getNumber(0); }
 	@Override public void execute() { e.setNumber(v); }
 	@Override public void end(boolean interrupted) { e.setNumber(ov); }
-	// must be interupted to end
-	@Override public boolean isFinished() { return false; }
 }

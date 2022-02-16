@@ -22,7 +22,7 @@ public class AutoDrive extends CommandBase {
         s_dt.dd.tankDrive(0, 0);
     }
     @Override public void execute() {
-        s_dt.dd.arcadeDrive(th, turn);
+        s_dt.dd.arcadeDrive(th, turn, false);
     }
     @Override public boolean isFinished() { return (moveTimer.get() > time); }
 }

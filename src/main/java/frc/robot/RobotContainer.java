@@ -29,8 +29,9 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //#region Configure the button bindings
-    UserInput.b_MX.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
-    UserInput.b_MY.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1));
+    UserInput.b_ML.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
+    UserInput.b_MR.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1));
+    UserInput.b_MX.whileHeld(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 2));
     //#endregion
     //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(
@@ -56,13 +57,12 @@ public class RobotContainer {
   private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
     return new AutoDrive(sub_DriveTrain, throttle, turn, time);
   }
-
   public enum RobotState {
     Teleop,
     Auto,
     Test
   }
-  private ParallelCommandGroup mainCommand = new ParallelCommandGroup();
+  private ParallelCommandGroup mainCommand; // reference to the current state dependent command
   /**
    * Sets up the commands and subsystems for each state
    * @param s The state to set
