@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -10,20 +10,19 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-    private final MotorController m_l0 = new WPI_TalonSRX(Constants.IO.m_dl[0]);
-    private final MotorController m_l1 = new WPI_TalonSRX(Constants.IO.m_dl[1]);
-    private final MotorController m_r0 = new WPI_TalonSRX(Constants.IO.m_dr[0]);
-    private final MotorController m_r1 = new WPI_TalonSRX(Constants.IO.m_dr[1]);
+    private final MotorController      m_l0 = new WPI_TalonFX(Constants.IO.m_dl[0]);
+    private final MotorController      m_l1 = new WPI_TalonFX(Constants.IO.m_dl[1]);
+    private final MotorController      m_r0 = new WPI_TalonFX(Constants.IO.m_dr[0]);
+    private final MotorController      m_r1 = new WPI_TalonFX(Constants.IO.m_dr[1]);
     private final MotorControllerGroup mg_l = new MotorControllerGroup(m_l0, m_l1);
     private final MotorControllerGroup mg_r = new MotorControllerGroup(m_r0, m_r1);
-    public final DifferentialDrive dd = new DifferentialDrive(mg_l, mg_r);
+    public final DifferentialDrive     dd   = new DifferentialDrive(mg_l, mg_r);
+    public double driveSpeed = 0;
 
     public DriveTrain() {
-        mg_r.setInverted(true); // invert right side
-        dd.setSafetyEnabled(false); // oof
+        mg_l.setInverted(true); // invert left side
+        dd.setSafetyEnabled(false); // lol screw safety
     }
-
-    public double driveSpeed = 1;
 
     @Override public void periodic() {
         dd.setMaxOutput(driveSpeed);

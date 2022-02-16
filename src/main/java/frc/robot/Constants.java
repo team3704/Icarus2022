@@ -16,8 +16,8 @@ public final class Constants {
     /** RoboRIO IO Device Ports will be defined within this subclass */
     public static final class IO {
         // gearbox motor pairs have primary (master) first, then secondary (slave).
-        public static final int[] m_dl = new int[] {2, 1};
-        public static final int[] m_dr = new int[] {6, 5};
+        public static final int[] m_dl = {2, 1};
+        public static final int[] m_dr = {6, 5};
     }
     /** USB Order for Joysticks and misc. USB devices. */
     public static final class USB {

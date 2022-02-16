@@ -11,7 +11,7 @@ public class Pneumatics extends SubsystemBase {
 		try {
 			compressor = new Compressor(PneumaticsModuleType.CTREPCM);
 		} catch (Exception e) {
-			System.out.println("Cannot create the compressor, is it on the CAN bus?");
+			System.out.println("Can't get the compressor. Is the PCM connected?");
 		}
 	}
 
