@@ -7,9 +7,8 @@ package frc.robot;
 import java.util.HashMap;
 import java.util.Map;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,43 +18,35 @@ import frc.robot.subsystems.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final DriveTrain sub_DriveTrain = new DriveTrain();
-  private final Limelight  sub_Limelight  = new Limelight();
-  private final Pneumatics sub_Pneumatics = new Pneumatics();
+  private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
+  private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
+  private final frc.robot.subsystems.Pneumatics sub_Pneumatics = new frc.robot.subsystems.Pneumatics();
+  private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
 
-  private final TankDrive  cmd_TankDrive  = new TankDrive (sub_DriveTrain);
+  private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
+  private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value); }
+  private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)  { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
 
   private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //#region Configure the button bindings
-    UserInput.b_ML.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("camMode"), 1));
-    UserInput.b_MR.toggleWhenPressed(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 1));
-    UserInput.b_MX.whileHeld(new SetLL(sub_Limelight, sub_Limelight.nt.getEntry("ledMode"), 2));
+    UserInput.b_ML.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
+    UserInput.b_MR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
+    UserInput.b_MX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
     //#endregion
     //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(
       new SequentialCommandGroup(
         new WaitCommand(5),
         // drive test sequence
-        generateAutoDriveCommand(0.25,  0, -1), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25,  0,  1), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25, -1,  0), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25,  1,  0), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25, -1, -1), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25,  1,  1), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25, -1,  1), new WaitCommand(0.25),
-        generateAutoDriveCommand(0.25,  1, -1)
+        cmd_AutoDrive(0, 0, 1)
       )
     ));
     stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
       cmd_TankDrive
     ));
     //#endregion
-  }
-
-  private AutoDrive generateAutoDriveCommand(double time, double throttle, double turn) {
-    return new AutoDrive(sub_DriveTrain, throttle, turn, time);
   }
   public enum RobotState {
     Teleop,
@@ -79,7 +70,8 @@ public class RobotContainer {
     CommandScheduler.getInstance().registerSubsystem(
       sub_Limelight,
       sub_DriveTrain,
-      sub_Pneumatics
+      sub_Pneumatics,
+      sub_Power
     );
   }
 }
