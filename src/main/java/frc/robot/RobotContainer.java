@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.*;
 
 /**
@@ -20,7 +21,6 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
   private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
-  private final frc.robot.subsystems.Pneumatics sub_Pneumatics = new frc.robot.subsystems.Pneumatics();
   private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
 
   private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
@@ -77,7 +77,6 @@ public class RobotContainer {
     CommandScheduler.getInstance().registerSubsystem(
       sub_Limelight,
       sub_DriveTrain,
-      sub_Pneumatics,
       sub_Power
     );
   }
