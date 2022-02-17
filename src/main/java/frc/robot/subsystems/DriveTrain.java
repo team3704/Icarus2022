@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class DriveTrain extends SubsystemBase {
-    private final MotorController      m_l0 = new WPI_TalonFX(Constants.IO.m_dl[0]);
-    private final MotorController      m_l1 = new WPI_TalonFX(Constants.IO.m_dl[1]);
-    private final MotorController      m_r0 = new WPI_TalonFX(Constants.IO.m_dr[0]);
-    private final MotorController      m_r1 = new WPI_TalonFX(Constants.IO.m_dr[1]);
+    private final MotorController      m_l0 = new WPI_TalonFX(Constants.CAN.m_dl[0]);
+    private final MotorController      m_l1 = new WPI_TalonFX(Constants.CAN.m_dl[1]);
+    private final MotorController      m_r0 = new WPI_TalonFX(Constants.CAN.m_dr[0]);
+    private final MotorController      m_r1 = new WPI_TalonFX(Constants.CAN.m_dr[1]);
     private final MotorControllerGroup mg_l = new MotorControllerGroup(m_l0, m_l1);
     private final MotorControllerGroup mg_r = new MotorControllerGroup(m_r0, m_r1);
     public final DifferentialDrive     dd   = new DifferentialDrive(mg_l, mg_r);

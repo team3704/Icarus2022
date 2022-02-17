@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -13,16 +15,24 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    /** RoboRIO IO Device Ports will be defined within this subclass */
-    public static final class IO {
+    // RoboRIO IO Device Ports will be defined within these subclasses
+    /** CAN device ids */
+    public static final class CAN {
         // gearbox motor pairs have primary (master) first, then secondary (slave).
         public static final int[] m_dl = {2, 1};
         public static final int[] m_dr = {6, 5};
+        public static final int[] m_shooter = {0, 0};
     }
-    /** USB Order for Joysticks and misc. USB devices. */
+    /** PWM port ids (mainly used for servos) */
+    public static final class PWM {
+
+    }
+    /** I2C device adresses */
+    public static final class IIC {
+        // color sensor?
+    } 
+    /** USB Order for Joysticks and other USB devices. */
     public static final class USB {
-        public static final int j_fl = 0;
-        public static final int j_fr = 1;
-        public static final int j_mx = 2;
+        public static final int j_fl = 0, j_fr = 1, j_mx = 2;
     }
 }
