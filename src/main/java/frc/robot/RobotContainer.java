@@ -24,8 +24,8 @@ public class RobotContainer {
   private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
 
   private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
-  private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value); }
-  private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)  { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
+  private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value);    }
+  private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)        { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
 
   private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
