@@ -40,7 +40,14 @@ public class RobotContainer {
       new SequentialCommandGroup(
         new WaitCommand(5),
         // drive test sequence
-        cmd_AutoDrive(0, 0, 1)
+        cmd_AutoDrive(0   ,  1   , 1),
+        cmd_AutoDrive(0   , -1   , 1),
+        cmd_AutoDrive(0   ,  0.5 , 1),
+        cmd_AutoDrive(0   , -0.5 , 1),
+        cmd_AutoDrive(0   ,  0.25, 1),
+        cmd_AutoDrive(0   , -0.25, 1),
+        cmd_AutoDrive( 0.5,  0   , 1),
+        cmd_AutoDrive(-0.5,  1   , 1)
       )
     ));
     stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
