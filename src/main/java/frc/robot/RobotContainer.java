@@ -18,44 +18,44 @@ import edu.wpi.first.wpilibj2.command.*;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
-  private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
-  private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
-  private final frc.robot.subsystems.Shooter    sub_Shooter    = new frc.robot.subsystems.Shooter();
+  //private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
+  //private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
+  //private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
+  //private final frc.robot.subsystems.Shooter    sub_Shooter    = new frc.robot.subsystems.Shooter();
   private final frc.robot.subsystems.BallTrack  sub_BallTrack  = new frc.robot.subsystems.BallTrack();
 
-  private final frc.robot.commands.Shoot        cmd_Shoot = new frc.robot.commands.Shoot(sub_Shooter);
-  private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
-  private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value);    }
-  private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)        { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
+  //private final frc.robot.commands.Shoot        cmd_Shoot = new frc.robot.commands.Shoot(sub_Shooter);
+  //private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
+  //private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value);    }
+  //private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)        { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
   private final frc.robot.commands.ControlArm   cmd_ControlArm = new frc.robot.commands.ControlArm(sub_BallTrack);
 
   private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //#region Configure the button bindings
-    UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
-    UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
-    UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
-    UserInput.b_xboxY.whileHeld(cmd_Shoot);
+    //UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
+    //UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
+    //UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
+    //UserInput.b_xboxY.whileHeld(cmd_Shoot);
     //#endregion
     //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(
       new SequentialCommandGroup(
-        new WaitCommand(5),
+        new WaitCommand(5)
         // drive test sequence
-        cmd_AutoDrive(0   ,  1   , 1),
-        cmd_AutoDrive(0   , -1   , 1),
-        cmd_AutoDrive(0   ,  0.5 , 1),
-        cmd_AutoDrive(0   , -0.5 , 1),
-        cmd_AutoDrive(0   ,  0.25, 1),
-        cmd_AutoDrive(0   , -0.25, 1),
-        cmd_AutoDrive( 0.5,  0   , 1),
-        cmd_AutoDrive(-0.5,  1   , 1)
+        //cmd_AutoDrive(0   ,  1   , 1),
+        //cmd_AutoDrive(0   , -1   , 1),
+        //cmd_AutoDrive(0   ,  0.5 , 1),
+        //cmd_AutoDrive(0   , -0.5 , 1),
+        //cmd_AutoDrive(0   ,  0.25, 1),
+        //cmd_AutoDrive(0   , -0.25, 1),
+        //cmd_AutoDrive( 0.5,  0   , 1),
+        //cmd_AutoDrive(-0.5,  1   , 1)
       )
     ));
     stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
-      cmd_TankDrive,
+      //cmd_TankDrive,
       cmd_ControlArm
     ));
     //#endregion
@@ -65,13 +65,13 @@ public class RobotContainer {
     Auto,
     Test
   }
-  private ParallelCommandGroup mainCommand; // reference to the current state dependent command
+  private ParallelCommandGroup mainCommand = null; // reference to the current state dependent command
   /**
    * Sets up the commands and subsystems for each state
    * @param s The state to set
    */
   public void changeState(RobotState s) {
-    mainCommand.cancel();
+    if (mainCommand != null) mainCommand.cancel();
     if (s == null) {
       System.out.println("Robot disabled. (state = null)");
     } else {
@@ -80,9 +80,10 @@ public class RobotContainer {
     }
     // add subsystems to the scheduler (in case they were removed)
     CommandScheduler.getInstance().registerSubsystem(
-      sub_Limelight,
-      sub_DriveTrain,
-      sub_Power
+      //sub_Limelight,
+      //sub_DriveTrain,
+      sub_BallTrack
+      //sub_Power
     );
   }
 }
