@@ -20,7 +20,7 @@ public class ControlArm extends CommandBase {
 
     @Override
     public void execute() {
-        s_bt.sparky_speed = MathUtil.applyDeadband(UserInput.j_M.getRawAxis(XboxController.Axis.kRightY.value), 0.1);
+        s_bt.sparky_speed = MathUtil.applyDeadband(UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value), 0.1);
     }
 
     @Override
