@@ -23,7 +23,7 @@ public final class Constants {
     }
     /** PWM port ids (mainly used for servos) */
     public static final class PWM {
-
+        public static final int m_arm = 0;
     }
     /** I2C device adresses */
     public static final class IIC {

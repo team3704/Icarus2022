@@ -20,14 +20,15 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
   private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
-  private final frc.robot.subsystems.Pneumatics sub_Pneumatics = new frc.robot.subsystems.Pneumatics();
   private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
   private final frc.robot.subsystems.Shooter    sub_Shooter    = new frc.robot.subsystems.Shooter();
+  private final frc.robot.subsystems.BallTrack  sub_BallTrack  = new frc.robot.subsystems.BallTrack();
 
   private final frc.robot.commands.Shoot        cmd_Shoot = new frc.robot.commands.Shoot(sub_Shooter);
   private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
   private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value);    }
   private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)        { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
+  private final frc.robot.commands.ControlArm   cmd_ControlArm = new frc.robot.commands.ControlArm(sub_BallTrack);
 
   private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -54,7 +55,8 @@ public class RobotContainer {
       )
     ));
     stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
-      cmd_TankDrive
+      cmd_TankDrive,
+      cmd_ControlArm
     ));
     //#endregion
   }
@@ -80,7 +82,6 @@ public class RobotContainer {
     CommandScheduler.getInstance().registerSubsystem(
       sub_Limelight,
       sub_DriveTrain,
-      sub_Pneumatics,
       sub_Power
     );
   }
