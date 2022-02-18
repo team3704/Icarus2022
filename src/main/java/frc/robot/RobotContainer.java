@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.*;
 
 /**
