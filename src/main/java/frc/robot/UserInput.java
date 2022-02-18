@@ -6,17 +6,17 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /** Conains static instances for input devices. */
 public class UserInput {
-    public static final Joystick j_FL = new Joystick(Constants.USB.j_fl);
-    public static final Joystick j_FR = new Joystick(Constants.USB.j_fr);
-    public static final Joystick j_M  = new Joystick(Constants.USB.j_mx);
+    public static final Joystick j_flightLeft = new Joystick(Constants.USB.j_flightLeft);
+    public static final Joystick j_flightRight = new Joystick(Constants.USB.j_flightRight);
+    public static final Joystick j_xbox  = new Joystick(Constants.USB.j_xbox);
 
     public static final JoystickButton // Instanciate the buttons for the xbox controller
-        b_MA  = new JoystickButton(j_M, XboxController.Button.kA.value),
-        b_MB  = new JoystickButton(j_M, XboxController.Button.kB.value),
-        b_MX  = new JoystickButton(j_M, XboxController.Button.kX.value),
-        b_MY  = new JoystickButton(j_M, XboxController.Button.kY.value),
-        b_ML  = new JoystickButton(j_M, XboxController.Button.kLeftBumper.value),
-        b_MR  = new JoystickButton(j_M, XboxController.Button.kRightBumper.value),
-        b_MSL = new JoystickButton(j_M, XboxController.Button.kLeftStick.value),
-        b_MSR = new JoystickButton(j_M, XboxController.Button.kRightStick.value);
+        b_xboxA  = new JoystickButton(j_xbox, XboxController.Button.kA.value),
+        b_xboxB  = new JoystickButton(j_xbox, XboxController.Button.kB.value),
+        b_xboxX  = new JoystickButton(j_xbox, XboxController.Button.kX.value),
+        b_xboxY  = new JoystickButton(j_xbox, XboxController.Button.kY.value),
+        b_xboxL  = new JoystickButton(j_xbox, XboxController.Button.kLeftBumper.value),
+        b_xboxR  = new JoystickButton(j_xbox, XboxController.Button.kRightBumper.value),
+        b_xboxStickL = new JoystickButton(j_xbox, XboxController.Button.kLeftStick.value),
+        b_xboxStickR = new JoystickButton(j_xbox, XboxController.Button.kRightStick.value);
 }

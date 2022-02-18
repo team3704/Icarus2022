@@ -22,7 +22,9 @@ public class RobotContainer {
   private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
   private final frc.robot.subsystems.Pneumatics sub_Pneumatics = new frc.robot.subsystems.Pneumatics();
   private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
+  private final frc.robot.subsystems.Shooter    sub_Shooter    = new frc.robot.subsystems.Shooter();
 
+  private final frc.robot.commands.Shoot        cmd_Shoot = new frc.robot.commands.Shoot(sub_Shooter);
   private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
   private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value);    }
   private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)        { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
@@ -31,9 +33,10 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //#region Configure the button bindings
-    UserInput.b_ML.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
-    UserInput.b_MR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
-    UserInput.b_MX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
+    UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
+    UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
+    UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
+    UserInput.b_xboxY.whileHeld(cmd_Shoot);
     //#endregion
     //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(

@@ -14,11 +14,11 @@ public class TankDrive extends CommandBase {
     }
     
     @Override public void execute() {
-        double pl = MathUtil.applyDeadband(UserInput.j_FL.getY(), 0.025);
-        double pr = MathUtil.applyDeadband(UserInput.j_FR.getY(), 0.025);
-        double ps = (-UserInput.j_FR.getZ() + 1) / 2d;
-        s_dt.driveSpeed = (Math.round(ps * 10) / 10d); // decrease precision of speed control
-        s_dt.dd.tankDrive(pl, pr, false);
+        double leftSpeed = MathUtil.applyDeadband(UserInput.j_flightLeft.getY(), 0.025);
+        double rightSpeed = MathUtil.applyDeadband(UserInput.j_flightRight.getY(), 0.025);
+        double zAxisPercent = (-UserInput.j_flightRight.getZ() + 1) / 2d;
+        s_dt.driveSpeed = (Math.round(zAxisPercent * 10) / 10d); // decrease precision of speed control
+        s_dt.dd.tankDrive(leftSpeed, rightSpeed, false);
     }
     @Override public void end(boolean interrupted) {
         s_dt.dd.tankDrive(0, 0);

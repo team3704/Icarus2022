@@ -31,6 +31,6 @@ public final class Constants {
     } 
     /** USB Order for Joysticks and other USB devices. */
     public static final class USB {
-        public static final int j_fl = 0, j_fr = 1, j_mx = 2;
+        public static final int j_flightLeft = 0, j_flightRight = 1, j_xbox = 2;
     }
 }
