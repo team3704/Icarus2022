@@ -9,12 +9,9 @@ public class AutoDrive extends CommandBase {
     Timer moveTimer = new Timer();
     double th, turn, time;
     
-    public AutoDrive(DriveTrain s0, double x, double z, double t) {
+    public AutoDrive(DriveTrain s0, double a0, double a1, double a2) {
         addRequirements(s0);
-        s_dt = s0;
-        th = x;
-        turn = z;
-        time = t;
+        s_dt = s0; th = a0; turn = a1; time = a2;
     }
     @Override public void initialize() { moveTimer.start(); }
     @Override public void end(boolean interrupted) {

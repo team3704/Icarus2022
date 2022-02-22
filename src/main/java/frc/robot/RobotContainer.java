@@ -23,7 +23,7 @@ public class RobotContainer {
   //private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
   private final frc.robot.subsystems.BallTrack  sub_BallTrack  = new frc.robot.subsystems.BallTrack();
 
-  //private final frc.robot.commands.Shoot        cmd_Shoot = new frc.robot.commands.Shoot(sub_BallTrack);
+  private final frc.robot.commands.Shoot        cmd_Shoot        (double power) { return new frc.robot.commands.Shoot(sub_BallTrack, power); }
   //private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
   //private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value);    }
   //private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time)        { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
@@ -36,7 +36,7 @@ public class RobotContainer {
     //UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
     //UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
     //UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
-    //UserInput.b_xboxY.whileHeld(cmd_Shoot);
+    UserInput.b_xboxY.whileHeld(cmd_Shoot(1));
     //#endregion
     //#region Setup command groups
     stateComands.put(RobotState.Auto, new ParallelCommandGroup(

@@ -10,8 +10,8 @@ public class SetLL extends CommandBase {
 	Number v;
 	Number ov;
 
-	public SetLL(Limelight s0, NetworkTableEntry _e, int _n) {
-		s_ll = s0; e = _e; v = _n;
+	public SetLL(Limelight s0, NetworkTableEntry a0, int a1) {
+		s_ll = s0; e = a0; v = a1;
 	}
 
 	@Override public void initialize() { ov = e.getNumber(0); }

@@ -10,8 +10,8 @@ import frc.robot.subsystems.BallTrack;
 public class ControlArm extends CommandBase {
     BallTrack s_bt;
 
-    public ControlArm(BallTrack s_bt) {
-        this.s_bt = s_bt;
+    public ControlArm(BallTrack s0) {
+        s_bt = s0;
     }
 
     @Override
