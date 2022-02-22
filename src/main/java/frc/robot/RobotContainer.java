@@ -21,7 +21,6 @@ public class RobotContainer {
   //private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
   //private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
   //private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
-  //private final frc.robot.subsystems.Shooter    sub_Shooter    = new frc.robot.subsystems.Shooter();
   private final frc.robot.subsystems.BallTrack  sub_BallTrack  = new frc.robot.subsystems.BallTrack();
 
   //private final frc.robot.commands.Shoot        cmd_Shoot = new frc.robot.commands.Shoot(sub_Shooter);
