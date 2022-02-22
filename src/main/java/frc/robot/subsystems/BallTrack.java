@@ -7,13 +7,15 @@ import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
+/** Does everything to move the balls around the robot. */
 public class BallTrack extends SubsystemBase {
-    Spark       m_sparky = new Spark(Constants.PWM.m_arm);
-    WPI_TalonFX m_shootl = new WPI_TalonFX(Constants.CAN.m_shooter[0]);
+    Spark       m_sparky = new Spark(Constants.PWM.m_arm); // arm
+    //TODO: AAAAA THE SPARK MAX CAN DO LIMITS!!!!!!!!!!! USE AN ENCODER TO KEEP AT POSITION!!!!!!!!! OOPS!!
+    WPI_TalonFX m_sl     = new WPI_TalonFX(Constants.CAN.m_shooter[0]);
 
-    MotorControllerGroup mg_shooter = new MotorControllerGroup(m_shootl);
+    MotorControllerGroup mg_shooter = new MotorControllerGroup(m_sl);
 
-    public double sparky_speed = 0;
+    public double sparky_speed  = 0;
     public double shooter_speed = 0;
 
     public BallTrack() {

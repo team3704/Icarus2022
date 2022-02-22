@@ -21,7 +21,7 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
         mg_l.setInverted(true); // invert left side
-        dd.setSafetyEnabled(false); // lol screw safety
+        dd.setSafetyEnabled(false); // screw safety
     }
 
     @Override public void periodic() {

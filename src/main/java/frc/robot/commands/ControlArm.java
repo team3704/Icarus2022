@@ -2,7 +2,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.UserInput;
 import frc.robot.subsystems.BallTrack;
@@ -14,18 +13,13 @@ public class ControlArm extends CommandBase {
         s_bt = s0;
     }
 
-    @Override
-    public void end(boolean interrupted) {
+    @Override public void end(boolean interrupted) {
         s_bt.sparky_speed = 0;
     }
-
-    @Override
-    public void execute() {
+    @Override public void execute() {
         s_bt.sparky_speed = MathUtil.applyDeadband(UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value), 0.1);
     }
-
-    @Override
-    public void initialize() {
+    @Override public void initialize() {
         
     }
 }

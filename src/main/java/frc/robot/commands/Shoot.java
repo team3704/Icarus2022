@@ -14,7 +14,6 @@ public class Shoot extends CommandBase {
     @Override public void execute() {
         s_bt.shooter_speed = power;
     }
-
     @Override public void end(boolean interrupted) {
         s_bt.shooter_speed = 0;
     }
