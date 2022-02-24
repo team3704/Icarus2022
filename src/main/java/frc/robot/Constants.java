@@ -20,10 +20,11 @@ public final class Constants {
         public static final int[] m_dl = {2, 1};
         public static final int[] m_dr = {6, 5};
         public static final int[] m_shooter = {0, 0};
+        public static final int   m_arm = 0;
     }
     /** PWM port ids (mainly used for servos) */
     public static final class PWM {
-        public static final int m_arm = 0;
+
     }
     /** I2C device adresses */
     public static final class IIC {
