@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
@@ -10,6 +12,7 @@ import frc.robot.Constants;
 /** Does everything to move the balls around the robot. */
 public class BallTrack extends SubsystemBase {
     PWMSparkMax m_sparky = new PWMSparkMax(Constants.PWM.m_arm); // arm
+    //TODO: opps again, the spark max MUST be on the CAN bus for all features :/
     WPI_TalonFX m_sl     = new WPI_TalonFX(Constants.CAN.m_shooter[0]);
 
     MotorControllerGroup mg_shooter = new MotorControllerGroup(m_sl);
