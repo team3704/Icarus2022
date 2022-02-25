@@ -29,10 +29,9 @@ public class BallTrack extends SubsystemBase {
     @Override
     public void periodic() {
         { // arm motion magic
-            //TODO: find middle position value
             final double TICKS_P_DEGREE = 4096 / 360;
             double pos = m_arm.getSelectedSensorPosition();
-            double angle = (pos - Constants.POS.arm.center) - TICKS_P_DEGREE; // offset angle from center?
+            double angle = (pos - Constants.Position.Arm.center) - TICKS_P_DEGREE; // offset angle from center?
             double scalar = Math.cos(Math.toRadians(angle));
             m_arm.set(ControlMode.MotionMagic, arm_target_position, DemandType.ArbitraryFeedForward, arm_gravity_force * scalar);
         }

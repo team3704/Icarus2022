@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 
@@ -38,10 +39,10 @@ public final class Constants {
         public static final int j_flightLeft = 0, j_flightRight = 1, j_xbox = 2;
     }
     /** encoder positions */
-    public enum POS {
-        arm(0, 50, 100);
-
+    public enum Position {
+        //TODO: find these
+        Arm(0, 100);
         public int top, center, bottom;
-        POS(int t, int c, int b) { top = t; center = c; bottom = b; }
+        Position(int t, int b) { top = t; center = (int) MathUtil.interpolate(b, t, 0.5); bottom = b; }
     }
 }

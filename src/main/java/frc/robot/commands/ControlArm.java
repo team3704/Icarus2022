@@ -20,8 +20,11 @@ public class ControlArm extends CommandBase {
 
     }
     @Override public void execute() {
-        //TODO: Find position limits
-        s_bt.arm_target_position = MathUtil.clamp(s_bt.arm_target_position + MathUtil.applyDeadband(UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value), 0.2), Constants.POS.arm.bottom, Constants.POS.arm.top);
+        s_bt.arm_target_position = MathUtil.clamp(
+            s_bt.arm_target_position + MathUtil.applyDeadband(UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value), 0.2),
+            Constants.Position.Arm.bottom,
+            Constants.Position.Arm.top
+        );
     }
     @Override public void initialize() {
         
