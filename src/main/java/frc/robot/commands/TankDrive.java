@@ -12,7 +12,9 @@ public class TankDrive extends CommandBase {
         addRequirements(s0);
         s_dt = s0;
     }
-    
+    @Override public void initialize() {
+        s_dt.dd.setSafetyEnabled(false); // screw safety
+    }
     @Override public void execute() {
         double leftSpeed = MathUtil.applyDeadband(UserInput.j_flightLeft.getY(), 0.025);
         double rightSpeed = MathUtil.applyDeadband(UserInput.j_flightRight.getY(), 0.025);
@@ -22,5 +24,6 @@ public class TankDrive extends CommandBase {
     }
     @Override public void end(boolean interrupted) {
         s_dt.dd.tankDrive(0, 0);
+        s_dt.dd.setSafetyEnabled(true);
     }
 }

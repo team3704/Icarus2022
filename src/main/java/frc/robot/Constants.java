@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -28,10 +31,17 @@ public final class Constants {
     }
     /** I2C device adresses */
     public static final class IIC {
-        // color sensor?
+        public static final I2C i_colorSensor = new I2C(Port.kOnboard, 0x52);
     } 
     /** USB Order for Joysticks and other USB devices. */
     public static final class USB {
         public static final int j_flightLeft = 0, j_flightRight = 1, j_xbox = 2;
+    }
+    /** encoder positions */
+    public enum POS {
+        arm(0, 50, 100);
+
+        public int top, center, bottom;
+        POS(int t, int c, int b) { top = t; center = c; bottom = b; }
     }
 }

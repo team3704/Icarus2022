@@ -37,10 +37,10 @@ public class Robot extends TimedRobot {
    */
   @Override public void robotPeriodic     () { CommandScheduler.getInstance().run(); }
 
-  @Override public void disabledInit      () { rc.changeState(           null  ); }
-  @Override public void autonomousInit    () { rc.changeState(RobotState.Auto  ); }
-  @Override public void teleopInit        () { rc.changeState(RobotState.Teleop); }
-  @Override public void testInit          () { rc.changeState(RobotState.Test  ); }
+  @Override public void disabledInit      () { rc.setState(           null  ); }
+  @Override public void autonomousInit    () { rc.setState(RobotState.Auto  ); }
+  @Override public void teleopInit        () { rc.setState(RobotState.Teleop); }
+  @Override public void testInit          () { rc.setState(RobotState.Test  ); }
 
   @Override public void disabledPeriodic  () {}
   @Override public void autonomousPeriodic() {}
