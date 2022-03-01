@@ -21,8 +21,8 @@ public final class Constants {
     /** CAN device ids */
     public static final class CAN {
         // gearbox motor pairs have primary (master) first, then secondary (slave).
-        public static final int[] m_dl = {2, 1};
-        public static final int[] m_dr = {6, 5};
+        public static final int[] m_dl = {0, 1};
+        public static final int[] m_dr = {2, 3};
         public static final int[] m_shooter = {0, 0};
         public static final int   m_arm = 0;
     }

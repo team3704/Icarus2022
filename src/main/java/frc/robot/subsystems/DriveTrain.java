@@ -21,6 +21,7 @@ public class DriveTrain extends SubsystemBase {
 
     public DriveTrain() {
         mg_l.setInverted(true); // invert left side
+        dd.setSafetyEnabled(false);
     }
 
     @Override public void periodic() {

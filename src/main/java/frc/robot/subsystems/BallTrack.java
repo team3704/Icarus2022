@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -23,11 +24,12 @@ public class BallTrack extends SubsystemBase {
     ;
 
     public BallTrack() {
-
+        
     }
 
     @Override
     public void periodic() {
+        arm_gravity_force = SmartDashboard.getNumber("Arm Gravity Force", 0.1);
         { // arm motion magic
             final double TICKS_P_DEGREE = 4096 / 360;
             double pos = m_arm.getSelectedSensorPosition();

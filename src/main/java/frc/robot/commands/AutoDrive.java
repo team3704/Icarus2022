@@ -16,6 +16,7 @@ public class AutoDrive extends CommandBase {
 
     @Override public void initialize() {
         moveTimer.start();
+        s_dt.driveSpeed = 1;
     }
     @Override public void execute() {
         s_dt.dd.arcadeDrive(throttle, turn, false);
@@ -24,5 +25,5 @@ public class AutoDrive extends CommandBase {
         moveTimer.stop();
         s_dt.dd.tankDrive(0, 0);
     }
-    @Override public boolean isFinished() { return moveTimer.hasElapsed(time); }
+    @Override public boolean isFinished() { return moveTimer.get() > time; }
 }
