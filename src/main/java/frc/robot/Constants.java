@@ -24,7 +24,8 @@ public final class Constants {
         public static final int[] m_dl = {0, 1};
         public static final int[] m_dr = {2, 3};
         public static final int[] m_shooter = {0, 0};
-        public static final int   m_arm = 0;
+        public static final int[] m_climb   = {0, 0};
+        public static final int   m_arm = 4;
     }
     /** PWM port ids (mainly used for servos) */
     public static final class PWM {
@@ -40,8 +41,7 @@ public final class Constants {
     }
     /** encoder positions */
     public enum Position {
-        //TODO: find these
-        Arm(0, 100);
+        Arm(0, -1800);
         public int top, center, bottom;
         Position(int t, int b) { top = t; center = (int) MathUtil.interpolate(b, t, 0.5); bottom = b; }
     }

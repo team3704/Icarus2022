@@ -20,7 +20,7 @@ public class TankDrive extends CommandBase {
         double zAxisPercent = (-UserInput.j_flightRight.getZ() + 1) / 2d;
         s_dt.driveSpeed = (Math.round(zAxisPercent * 10) / 10d); // decrease precision of speed control
         s_dt.dd.setDeadband(0.05);
-        s_dt.dd.tankDrive(leftSpeed, rightSpeed, false);
+        s_dt.dd.tankDrive(leftSpeed, rightSpeed, true);
     }
     @Override public void end(boolean interrupted) {
         s_dt.dd.tankDrive(0, 0);

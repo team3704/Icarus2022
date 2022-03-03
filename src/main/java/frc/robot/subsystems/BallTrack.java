@@ -19,8 +19,11 @@ public class BallTrack extends SubsystemBase {
 
     public double
         arm_target_position,
-        arm_gravity_force = 0.1,
-        shooter_speed
+        shooter_speed,
+        intake_speed
+    ;
+    public int
+        arm_target_position_int
     ;
 
     public BallTrack() {
@@ -29,14 +32,11 @@ public class BallTrack extends SubsystemBase {
 
     @Override
     public void periodic() {
-        arm_gravity_force = SmartDashboard.getNumber("Arm Gravity Force", 0.1);
         { // arm motion magic
-            final double TICKS_P_DEGREE = 4096 / 360;
-            double pos = m_arm.getSelectedSensorPosition();
-            double angle = (pos - Constants.Position.Arm.center) - TICKS_P_DEGREE; // offset angle from center?
-            double scalar = Math.cos(Math.toRadians(angle));
-            m_arm.set(ControlMode.MotionMagic, arm_target_position, DemandType.ArbitraryFeedForward, arm_gravity_force * scalar);
+            arm_target_position_int = ((int) Math.round(arm_target_position / 25) * 25);
+            m_arm.set(ControlMode.MotionMagic, arm_target_position_int, DemandType.Neutral, 0);
         }
         mg_shooter.set(shooter_speed);
+        SmartDashboard.putNumber("Arm Target Position", (arm_target_position_int));
     }
 }
