@@ -67,6 +67,7 @@ public class RobotContainer {
    * @param s The state to set
    */
   public void setState(RobotState s) {
+    sub_BallTrack.arm_target_position = 0;
     if (mainCommand != null) mainCommand.cancel();
     if (s == null) {
       System.out.println("Robot disabled. (state = null)");
