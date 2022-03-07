@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.music.Orchestra;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.RobotContainer.RobotState;
@@ -41,6 +44,17 @@ public class Robot extends TimedRobot {
   @Override public void autonomousInit    () { rc.setState(RobotState.Auto  ); }
   @Override public void teleopInit        () { rc.setState(RobotState.Teleop); }
   @Override public void testInit          () { rc.setState(RobotState.Test  ); }
+
+  // lmaoooo
+  /*Orchestra music = new Orchestra();
+  @Override public void autonomousInit() {
+    music.addInstrument(new TalonFX(Constants.CAN.m_dl[0]));
+    music.addInstrument(new TalonFX(Constants.CAN.m_dl[1]));
+    music.addInstrument(new TalonFX(Constants.CAN.m_dr[0]));
+    music.addInstrument(new TalonFX(Constants.CAN.m_dr[1]));
+    music.loadMusic("lmao.chrp");
+    music.play();
+  }*/
 
   @Override public void disabledPeriodic  () {}
   @Override public void autonomousPeriodic() {}

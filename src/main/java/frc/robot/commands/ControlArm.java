@@ -22,7 +22,7 @@ public class ControlArm extends CommandBase {
             s_bt.arm_target_position - MathUtil.applyDeadband(
                 UserInput.j_xbox.getRawAxis(XboxController.Axis.kLeftY.value),
                 0.1
-            ) * 25,
+            ) * 10,
             Constants.Position.Arm.bottom, Constants.Position.Arm.top
         );
     }
