@@ -2,9 +2,12 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,32 +15,36 @@ import frc.robot.Constants;
 
 /** Does everything to move the balls around the robot. */
 public class BallTrack extends SubsystemBase {
-    TalonSRX    m_arm  = new TalonSRX(Constants.CAN.m_arm);
-    WPI_TalonFX m_sl   = new WPI_TalonFX(Constants.CAN.m_shooter[0]);
+    TalonSRX    m_arm    = new TalonSRX(Constants.CAN.m_arm);
+    VictorSPX   m_intake = new VictorSPX(Constants.CAN.m_intake);
+    VictorSPX   m_feed   = new VictorSPX(Constants.CAN.m_feed);
+    WPI_TalonFX m_sl     = new WPI_TalonFX(Constants.CAN.m_shooter[0]);
 
     MotorControllerGroup mg_shooter = new MotorControllerGroup(m_sl);
 
     public double
         arm_target_position,
         shooter_speed,
-        intake_speed
+        intake_speed,
+        feed_speed
     ;
     public int
         arm_target_position_int
     ;
 
     public BallTrack() {
-        
+        m_sl.setInverted(InvertType.InvertMotorOutput);
     }
 
     @Override
     public void periodic() {
         { //#region arm
-            arm_target_position_int = ((int) Math.round(arm_target_position / 20) * 20);
+            arm_target_position_int = ((int) Math.round(arm_target_position / 100) * 100);
             m_arm.set(ControlMode.MotionMagic, arm_target_position_int, DemandType.Neutral, 0);
+            m_intake.set(ControlMode.PercentOutput, intake_speed);
         } //#endregion
         { //#region feeder
-
+            m_feed.set(ControlMode.PercentOutput, MathUtil.clamp(shooter_speed * 10, -1, 1) * 0.5);
         } //#endregion
         { //#region shooter
             mg_shooter.set(shooter_speed);

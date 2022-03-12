@@ -23,9 +23,11 @@ public final class Constants {
         // gearbox motor pairs have primary (master) first, then secondary (slave).
         public static final int[] m_dl = {0, 1};
         public static final int[] m_dr = {2, 3};
-        public static final int[] m_shooter = {0, 0};
-        public static final int[] m_climb   = {0, 0};
+        public static final int[] m_shooter = {7};
+        public static final int[] m_climb   = {6, 8};
         public static final int   m_arm = 4;
+        public static final int   m_intake = 5;
+        public static final int   m_feed = 9;
     }
     /** PWM port ids (mainly used for servos) */
     public static final class PWM {

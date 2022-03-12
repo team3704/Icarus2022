@@ -25,6 +25,11 @@ public class ControlArm extends CommandBase {
             ) * 10,
             Constants.Position.Arm.bottom, Constants.Position.Arm.top
         );
+        s_bt.intake_speed = (
+            MathUtil.applyDeadband(
+                UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value),
+            0.2) * .25
+        );
     }
     @Override public void initialize() {
         

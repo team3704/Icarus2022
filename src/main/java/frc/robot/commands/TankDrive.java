@@ -6,6 +6,7 @@ import frc.robot.subsystems.DriveTrain;
 
 public class TankDrive extends CommandBase {
     DriveTrain s_dt;
+    boolean reverse = false;
 
     public TankDrive(DriveTrain s0) {
         addRequirements(s0);
@@ -15,10 +16,11 @@ public class TankDrive extends CommandBase {
         s_dt.dd.setSafetyEnabled(false); // screw safety
     }
     @Override public void execute() {
+        if (UserInput.j_flightLeft.getRawButtonPressed(3)) reverse ^= true;
         double leftSpeed = UserInput.j_flightLeft.getY();
         double rightSpeed = UserInput.j_flightRight.getY();
         double zAxisPercent = (-UserInput.j_flightRight.getZ() + 1) / 2d;
-        s_dt.driveSpeed = (Math.round(zAxisPercent * 10) / 10d); // decrease precision of speed control
+        s_dt.driveSpeed = (Math.round(zAxisPercent * 10) / 10d) * (reverse ? -1 : 1); // decrease precision of speed control
         s_dt.dd.setDeadband(0.05);
         s_dt.dd.tankDrive(leftSpeed, rightSpeed, true);
     }

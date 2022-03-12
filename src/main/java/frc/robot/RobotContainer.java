@@ -20,15 +20,16 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final frc.robot.subsystems.DriveTrain sub_DriveTrain = new frc.robot.subsystems.DriveTrain();
   private final frc.robot.subsystems.Limelight  sub_Limelight  = new frc.robot.subsystems.Limelight();
-  //private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
+  private final frc.robot.subsystems.Power      sub_Power      = new frc.robot.subsystems.Power();
   private final frc.robot.subsystems.BallTrack  sub_BallTrack  = new frc.robot.subsystems.BallTrack();
-  //private final frc.robot.subsystems.Climbing   sub_Climbing   = new frc.robot.subsystems.Climbing();
+  private final frc.robot.subsystems.Climbing   sub_Climbing   = new frc.robot.subsystems.Climbing();
 
-  //private final frc.robot.commands.Shoot        cmd_Shoot        (double power) { return new frc.robot.commands.Shoot(sub_BallTrack, power); }
+  private final frc.robot.commands.Shoot        cmd_Shoot        (double power) { return new frc.robot.commands.Shoot(sub_BallTrack, power); }
   private final frc.robot.commands.TankDrive    cmd_TankDrive  = new frc.robot.commands.TankDrive(sub_DriveTrain);
   private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value); }
   private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time) { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
   private final frc.robot.commands.ControlArm   cmd_ControlArm = new frc.robot.commands.ControlArm(sub_BallTrack);
+  private final frc.robot.commands.ControlClimb cmd_ControlClimb = new frc.robot.commands.ControlClimb(sub_Climbing);
 
   private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -37,8 +38,10 @@ public class RobotContainer {
     UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
     UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
     UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
-    //UserInput.b_xboxY.whileHeld(cmd_Shoot(0.6));
+    UserInput.b_xboxA.whileHeld(cmd_Shoot(0.3));
+    UserInput.b_xboxB.whileHeld(cmd_Shoot(-0.4));
     UserInput.b_xboxStickL.whenPressed(() -> { sub_BallTrack.arm_target_position = 0; });
+    
     //#endregion
     //#region Setup command groups
     double s = 0.25;
@@ -56,7 +59,7 @@ public class RobotContainer {
       )
     ));
     stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
-      cmd_TankDrive, cmd_ControlArm
+      cmd_TankDrive, cmd_ControlArm, cmd_ControlClimb
     ));
     //#endregion
   }
