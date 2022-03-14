@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.UserInput;
 
 public class DriveTrain extends SubsystemBase {
     private final MotorController m_l0 = new WPI_TalonFX(Constants.CAN.m_dl[0]);

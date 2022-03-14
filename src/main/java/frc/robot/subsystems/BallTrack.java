@@ -39,12 +39,12 @@ public class BallTrack extends SubsystemBase {
     @Override
     public void periodic() {
         { //#region arm
-            arm_target_position_int = ((int) Math.round(arm_target_position / 100) * 100);
+            arm_target_position_int = ((int) Math.round(arm_target_position / 200) * 200);
             m_arm.set(ControlMode.MotionMagic, arm_target_position_int, DemandType.Neutral, 0);
             m_intake.set(ControlMode.PercentOutput, intake_speed);
         } //#endregion
         { //#region feeder
-            m_feed.set(ControlMode.PercentOutput, MathUtil.clamp(shooter_speed * 10, -1, 1) * 0.5);
+            m_feed.set(ControlMode.PercentOutput, MathUtil.clamp(shooter_speed * 10, -1, 1) * 0.75);
         } //#endregion
         { //#region shooter
             mg_shooter.set(shooter_speed);

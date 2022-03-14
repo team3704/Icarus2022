@@ -13,8 +13,8 @@
         "tiles": {
           "2,1": {
             "size": [
-              3,
-              3
+              8,
+              6
             ],
             "content": {
               "_type": "Simple Dial",
