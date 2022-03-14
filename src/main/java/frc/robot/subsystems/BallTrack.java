@@ -44,7 +44,7 @@ public class BallTrack extends SubsystemBase {
             m_intake.set(ControlMode.PercentOutput, intake_speed);
         } //#endregion
         { //#region feeder
-            m_feed.set(ControlMode.PercentOutput, MathUtil.clamp(shooter_speed * 10, -1, 1) * 0.75);
+            m_feed.set(ControlMode.PercentOutput, MathUtil.clamp(shooter_speed * 10, -1, 1) * 0.5);
         } //#endregion
         { //#region shooter
             mg_shooter.set(shooter_speed);
