@@ -12,10 +12,6 @@ public class ControlClimb extends CommandBase {
 	}
 
 	@Override public void execute() {
-		double v = 0;
-		if (UserInput.j_xbox.getPOV() == 90) v = 1;
-		else
-		if (UserInput.j_xbox.getPOV() == 270) v = -1;
-		s_c.climb_speed = v * 0.5;
+		s_c.climb_speed = ((UserInput.j_xbox.getPOV() == 90) ? 1 : ((UserInput.j_xbox.getPOV() == 270) ? -1 : 0)) * 0.5;
 	}
 }
