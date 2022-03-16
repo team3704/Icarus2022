@@ -7,9 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
-import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -28,10 +26,6 @@ public class BallTrack extends SubsystemBase {
         intake_speed,
         feed_speed
     ;
-    public int
-        arm_target_position_int
-    ;
-
     public BallTrack() {
         m_sl.setInverted(InvertType.InvertMotorOutput);
     }
@@ -39,16 +33,14 @@ public class BallTrack extends SubsystemBase {
     @Override
     public void periodic() {
         { //#region arm
-            arm_target_position_int = ((int) Math.round(arm_target_position / 200) * 200);
-            m_arm.set(ControlMode.MotionMagic, arm_target_position_int, DemandType.Neutral, 0);
+            m_arm.set(ControlMode.MotionMagic, arm_target_position, DemandType.Neutral, 0);
             m_intake.set(ControlMode.PercentOutput, intake_speed);
         } //#endregion
         { //#region feeder
-            m_feed.set(ControlMode.PercentOutput, MathUtil.clamp(shooter_speed * 10, -1, 1) * 0.5);
+            m_feed.set(ControlMode.PercentOutput, Math.signum(shooter_speed) * .75);
         } //#endregion
         { //#region shooter
             mg_shooter.set(shooter_speed);
         } //#endregion
-        SmartDashboard.putNumber("Arm Target Position", (arm_target_position_int));
     }
 }

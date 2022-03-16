@@ -18,17 +18,13 @@ public class ControlArm extends CommandBase {
 
     }
     @Override public void execute() {
-        s_bt.arm_target_position = MathUtil.clamp(
-            s_bt.arm_target_position - MathUtil.applyDeadband(
-                UserInput.j_xbox.getRawAxis(XboxController.Axis.kLeftY.value),
-                0.1
-            ) * 10,
-            Constants.Position.Arm.bottom, Constants.Position.Arm.top
+        s_bt.intake_speed = MathUtil.applyDeadband(
+            UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value),
+            0.2
         );
-        s_bt.intake_speed = (
-            MathUtil.applyDeadband(
-                UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightY.value),
-            0.2) * .50
+        s_bt.feed_speed = MathUtil.applyDeadband(
+            UserInput.j_xbox.getRawAxis(XboxController.Axis.kLeftY.value),
+            0.042069
         );
     }
     @Override public void initialize() {
