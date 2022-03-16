@@ -25,6 +25,6 @@ public class DriveTrain extends SubsystemBase {
 
     @Override public void periodic() {
         dd.setMaxOutput(driveSpeed);
-        SmartDashboard.putNumber("Drive Speed", driveSpeed);
+        SmartDashboard.putNumber("Drive Speed", Math.abs(driveSpeed));
     }
 }

@@ -31,21 +31,21 @@ public class RobotContainer {
   private final frc.robot.commands.ControlArm   cmd_ControlArm = new frc.robot.commands.ControlArm(sub_BallTrack);
   private final frc.robot.commands.ControlClimb cmd_ControlClimb = new frc.robot.commands.ControlClimb(sub_Climbing);
 
-  private final Map<RobotState, ParallelCommandGroup> stateComands = new HashMap<>();
+  private final Map<RobotState, ParallelCommandGroup> stateCommands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //#region Configure the button bindings
     UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
     UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
     UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
-    UserInput.b_xboxA.whileHeld(cmd_Shoot(0.75));
+    UserInput.b_xboxA.whileHeld(cmd_Shoot(0.5));
     UserInput.b_xboxB.whileHeld(cmd_Shoot(-0.4));
     UserInput.b_xboxStickL.whenPressed(() -> { sub_BallTrack.arm_target_position = 0; });
     
     //#endregion
     //#region Setup command groups
     double s = 0.25;
-    stateComands.put(RobotState.Auto, new ParallelCommandGroup(
+    stateCommands.put(RobotState.Auto, new ParallelCommandGroup(
       new SequentialCommandGroup(
         new WaitCommand(1),
         cmd_AutoDrive( s, 0, 0.5), new WaitCommand(1),
@@ -58,7 +58,7 @@ public class RobotContainer {
         cmd_AutoDrive(-s, -s, 0.5)
       )
     ));
-    stateComands.put(RobotState.Teleop, new ParallelCommandGroup(
+    stateCommands.put(RobotState.Teleop, new ParallelCommandGroup(
       cmd_TankDrive, cmd_ControlArm, cmd_ControlClimb
     ));
     //#endregion
@@ -75,7 +75,7 @@ public class RobotContainer {
     if (s == null) {
       System.out.println("Robot disabled. (state = null)");
     } else {
-      mainCommand = stateComands.get(s);
+      mainCommand = stateCommands.get(s);
       mainCommand.schedule();
     }
   }
