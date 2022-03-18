@@ -10,6 +10,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,7 +21,7 @@ public class BallTrack extends SubsystemBase {
         Up,
         Down
     }
-    public armDirection direction = armDirection.Down;
+    public armDirection direction = armDirection.Up;
     public TalonSRX    m_arm    = new TalonSRX(Constants.CAN.m_arm);
     VictorSPX   m_intake = new VictorSPX(Constants.CAN.m_intake);
     VictorSPX   m_feed   = new VictorSPX(Constants.CAN.m_feed);
@@ -38,28 +40,34 @@ public class BallTrack extends SubsystemBase {
 
     @Override
     public void periodic() {
-        if(m_arm.getSelectedSensorPosition() > -200 || m_arm.getSelectedSensorPosition() < -1300) m_arm.set(ControlMode.PercentOutput, 0);
-        else {
-            double centerOffSet = (m_arm.getSelectedSensorPosition() + 750) / -1300;
-
-            m_arm.set(
-            ControlMode.PercentOutput, direction == armDirection.Down ? 0.25 * -Math.abs(centerOffSet) - 0.05: 0.25 * (1 - Math.abs(centerOffSet))
-            );
-        }
-
         // positive = up -100
         // center = -750
         // negative = down -1400
         
-        /*{ //#region arm
-            m_arm.set(ControlMode.MotionMagic, arm_target_position, DemandType.Neutral, 0);
+        { //#region arm
+            //m_arm.set(ControlMode.MotionMagic, arm_target_position, DemandType.Neutral, 0);
             m_intake.set(ControlMode.PercentOutput, intake_speed);
-        } //#endregion*/
+            
+            if(
+                (direction == armDirection.Up && m_arm.getSelectedSensorPosition() > -100) ||
+                (direction == armDirection.Down && m_arm.getSelectedSensorPosition() < -1200)) m_arm.set(ControlMode.PercentOutput, 0);
+            else {
+                double topOffSet = m_arm.getSelectedSensorPosition() / -1200;
+                double th = Math.sin(topOffSet * Math.PI) + 0.5;
+                SmartDashboard.putNumber("Arm Center Offset %", topOffSet);
+                SmartDashboard.putNumber("Arm Throttle", th);
+                m_arm.set(
+                ControlMode.PercentOutput, Math.copySign(th, (direction == armDirection.Down ? -1 : 1))
+                );
+            }
+        } //#endregion
         { //#region feeder
             m_feed.set(ControlMode.PercentOutput, feed_speed);
         } //#endregion
         { //#region shooter
             mg_shooter.set(shooter_speed);
         } //#endregion
+
+        SmartDashboard.putNumber("Arm Position", m_arm.getSelectedSensorPosition());
     }
 }

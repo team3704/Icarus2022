@@ -43,7 +43,7 @@ public final class Constants {
     }
     /** encoder positions */
     public enum Position {
-        Arm(0, 0);
+        Arm(0, 1200);
         public int top, center, bottom;
         Position(int t, int b) { top = t; center = (int) MathUtil.interpolate(b, t, 0.5); bottom = b; }
     }

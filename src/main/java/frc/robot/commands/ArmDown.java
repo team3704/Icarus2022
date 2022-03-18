@@ -14,7 +14,7 @@ public class ArmDown extends CommandBase {
 
   @Override
   public void initialize() {
-    //s_bt.arm_target_position *= -1;\
+    //s_bt.arm_target_position = Constants.Position.Arm.bottom;
     s_bt.direction = armDirection.Down;
   }
 
