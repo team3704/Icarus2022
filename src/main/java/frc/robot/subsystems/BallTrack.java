@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -32,10 +33,17 @@ public class BallTrack extends SubsystemBase {
 
     @Override
     public void periodic() {
-        { //#region arm
+        double topPercentage = (m_arm.getSelectedSensorPosition() + 100) / -1300;
+        double bottomPercentage = (m_arm.getSelectedSensorPosition() + 100) / 1300;
+        // positive = up -100
+        // negative = down -1400
+        if(arm_target_position == -100) m_arm.set(ControlMode.PercentOutput, (topPercentage));
+        else m_arm.set(ControlMode.PercentOutput, bottomPercentage);
+        
+        /*{ //#region arm
             m_arm.set(ControlMode.MotionMagic, arm_target_position, DemandType.Neutral, 0);
             m_intake.set(ControlMode.PercentOutput, intake_speed);
-        } //#endregion
+        } //#endregion*/
         { //#region feeder
             m_feed.set(ControlMode.PercentOutput, Math.signum(shooter_speed) * .75);
         } //#endregion
