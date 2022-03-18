@@ -57,7 +57,7 @@ public class BallTrack extends SubsystemBase {
                 SmartDashboard.putNumber("Arm Center Offset %", topOffSet);
                 SmartDashboard.putNumber("Arm Throttle", th);
                 m_arm.set(
-                ControlMode.PercentOutput, Math.copySign(th, (direction == armDirection.Down ? -1 : 1))
+                ControlMode.PercentOutput,  th * (direction == armDirection.Down ? -1 : 1)
                 );
             }
         } //#endregion
