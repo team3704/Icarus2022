@@ -14,7 +14,7 @@ import frc.robot.Constants;
 
 /** Does everything to move the balls around the robot. */
 public class BallTrack extends SubsystemBase {
-    TalonSRX    m_arm    = new TalonSRX(Constants.CAN.m_arm);
+    public TalonSRX    m_arm    = new TalonSRX(Constants.CAN.m_arm);
     VictorSPX   m_intake = new VictorSPX(Constants.CAN.m_intake);
     VictorSPX   m_feed   = new VictorSPX(Constants.CAN.m_feed);
     WPI_TalonFX m_sl     = new WPI_TalonFX(Constants.CAN.m_shooter[0]);
@@ -45,7 +45,7 @@ public class BallTrack extends SubsystemBase {
             m_intake.set(ControlMode.PercentOutput, intake_speed);
         } //#endregion*/
         { //#region feeder
-            m_feed.set(ControlMode.PercentOutput, Math.signum(shooter_speed) * .75);
+            m_feed.set(ControlMode.PercentOutput, feed_speed);
         } //#endregion
         { //#region shooter
             mg_shooter.set(shooter_speed);

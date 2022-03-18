@@ -40,7 +40,12 @@ public class RobotContainer {
     UserInput.b_xboxL.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("camMode"), 1));
     UserInput.b_xboxR.toggleWhenPressed(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 1));
     UserInput.b_xboxX.whileHeld(cmd_SetLL(sub_Limelight.nt.getEntry("ledMode"), 2));
-    UserInput.b_xboxY.toggleWhenPressed(cmd_ArmDown);
+    UserInput.b_xboxY.whenPressed(() -> {
+      
+    });
+    UserInput.b_xboxA.whenPressed(() -> {
+      sub_BallTrack.m_arm.setSelectedSensorPosition(0);
+    });
     //#endregion
     //#region Setup command groups
     double s = 0.25;
