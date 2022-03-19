@@ -18,6 +18,6 @@ public class Shoot extends CommandBase {
         s_bt.shooter_speed = MathUtil.applyDeadband(
             UserInput.j_xbox.getRawAxis(XboxController.Axis.kRightTrigger.value) -
             UserInput.j_xbox.getRawAxis(XboxController.Axis.kLeftTrigger.value)
-        , 0.2) * 1;
+        , 0.2) * 0.75;
     }
 }

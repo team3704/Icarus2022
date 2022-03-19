@@ -18,6 +18,7 @@ public class UserInput {
         b_xboxL      = new JoystickButton(j_xbox, XboxController.Button.kLeftBumper.value),
         b_xboxR      = new JoystickButton(j_xbox, XboxController.Button.kRightBumper.value),
         b_xboxStickL = new JoystickButton(j_xbox, XboxController.Button.kLeftStick.value),
-        b_xboxStickR = new JoystickButton(j_xbox, XboxController.Button.kRightStick.value)
+        b_xboxStickR = new JoystickButton(j_xbox, XboxController.Button.kRightStick.value),
+        b_xboxBack   = new JoystickButton(j_xbox, XboxController.Button.kBack.value)
     ;
 }
