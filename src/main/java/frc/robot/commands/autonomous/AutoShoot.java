@@ -17,13 +17,13 @@ public class AutoShoot extends CommandBase {
     }
     @Override public void execute() {
         ballTrack.shooter_speed = 0.8;
-        if(timer.get() > time / 1.7 || time < 3) {
+        if(timer.get() > time / 2 || time < 3) {
             ballTrack.feed_speed = 1;
-            ballTrack.intake_speed = 1;
+            //ballTrack.intake_speed = 1;
         }
     }    
     @Override public void end(boolean interrupted) {
-        ballTrack.shooter_speed = ballTrack.feed_speed = ballTrack.intake_speed = 0;
+        ballTrack.shooter_speed = ballTrack.feed_speed = 0;//ballTrack.intake_speed = 0;
     }
     @Override public boolean isFinished() {
         return timer.get() > time;

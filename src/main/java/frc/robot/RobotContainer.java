@@ -53,7 +53,7 @@ public class RobotContainer {
         new WaitCommand(1),
         new ParallelCommandGroup(
           cmd_AutoDrive(0.8, 0, 1.4),
-          cmd_AutoShoot(8)
+          cmd_AutoShoot(5)
         )
         // cmd_AutoAim
       )
@@ -70,7 +70,6 @@ public class RobotContainer {
    * @param s The state to set
    */
   public void setState(RobotState s) {
-    System.out.print("test");
     sub_BallTrack.arm_target_position = 0;
     if (mainCommand != null) mainCommand.cancel();
     if (s == null) {
@@ -81,6 +80,8 @@ public class RobotContainer {
     }
     if (s == RobotState.Teleop) {
       sub_BallTrack.m_arm.setSelectedSensorPosition(0);
+    } else if (s == RobotState.Auto) {
+      sub_DriveTrain.dd.setSafetyEnabled(true);
     }
   }
 }
