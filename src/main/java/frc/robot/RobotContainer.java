@@ -22,7 +22,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final frc.robot.subsystems.DriveTrain sub_DriveTrain   = new frc.robot.subsystems.DriveTrain();
   private final frc.robot.subsystems.Limelight  sub_Limelight    = new frc.robot.subsystems.Limelight();
-  private final frc.robot.subsystems.Power      sub_Power        = new frc.robot.subsystems.Power();
+  // private final frc.robot.subsystems.Power      sub_Power        = new frc.robot.subsystems.Power();
   private final frc.robot.subsystems.BallTrack  sub_BallTrack    = new frc.robot.subsystems.BallTrack();
   private final frc.robot.subsystems.Climbing   sub_Climbing     = new frc.robot.subsystems.Climbing();
 
@@ -33,7 +33,7 @@ public class RobotContainer {
   private final frc.robot.commands.autonomous.AutoDrive    cmd_AutoDrive    (double x, double z, double time) { return new frc.robot.commands.autonomous.AutoDrive(sub_DriveTrain, x, z, time); }
   private final frc.robot.commands.ControlArm   cmd_ControlArm   = new frc.robot.commands.ControlArm(sub_BallTrack);
   private final frc.robot.commands.ControlClimb cmd_ControlClimb = new frc.robot.commands.ControlClimb(sub_Climbing);
-  private final frc.robot.commands.autonomous.AutoAim      cmd_AutoAim      = new frc.robot.commands.autonomous.AutoAim(sub_DriveTrain, sub_Limelight);
+  // private final frc.robot.commands.autonomous.AutoAim      cmd_AutoAim      = new frc.robot.commands.autonomous.AutoAim(sub_DriveTrain, sub_Limelight);
   private final frc.robot.commands.ArmDown      cmd_ArmDown      = new frc.robot.commands.ArmDown(sub_BallTrack);
   private final frc.robot.commands.autonomous.AutoShoot cmd_AutoShoot (double time) {return new frc.robot.commands.autonomous.AutoShoot(sub_BallTrack, time);}
   
@@ -54,7 +54,7 @@ public class RobotContainer {
       new SequentialCommandGroup(
         new WaitCommand(0.5),
         new ParallelCommandGroup(
-          cmd_AutoDrive(-0.8, 0, 1.9),
+          cmd_AutoDrive(-0.8, 0, 0.73),
           cmd_AutoShoot(5)
         )
         // cmd_AutoAim
