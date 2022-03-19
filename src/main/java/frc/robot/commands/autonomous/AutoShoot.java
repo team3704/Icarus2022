@@ -9,7 +9,6 @@ public class AutoShoot extends CommandBase {
     Timer timer = new Timer();
     double time;
     public AutoShoot(BallTrack ballTrackSubsystem, double time) {
-        addRequirements(ballTrack);
         ballTrack = ballTrackSubsystem;
         this.time = time;
     }
