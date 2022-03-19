@@ -9,6 +9,7 @@ import java.util.Map;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj2.command.*;
+import frc.robot.subsystems.BallTrack;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -27,11 +28,12 @@ public class RobotContainer {
   private final frc.robot.commands.Shoot        cmd_Shoot        = new frc.robot.commands.Shoot(sub_BallTrack);
   private final frc.robot.commands.TankDrive    cmd_TankDrive    = new frc.robot.commands.TankDrive(sub_DriveTrain);
   private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value); }
-  private final frc.robot.commands.AutoDrive    cmd_AutoDrive    (double x, double z, double time) { return new frc.robot.commands.AutoDrive(sub_DriveTrain, x, z, time); }
+  private final frc.robot.commands.autonomous.AutoDrive    cmd_AutoDrive    (double x, double z, double time) { return new frc.robot.commands.autonomous.AutoDrive(sub_DriveTrain, x, z, time); }
   private final frc.robot.commands.ControlArm   cmd_ControlArm   = new frc.robot.commands.ControlArm(sub_BallTrack);
   private final frc.robot.commands.ControlClimb cmd_ControlClimb = new frc.robot.commands.ControlClimb(sub_Climbing);
-  private final frc.robot.commands.AutoAim      cmd_AutoAim      = new frc.robot.commands.AutoAim(sub_DriveTrain, sub_Limelight);
+  private final frc.robot.commands.autonomous.AutoAim      cmd_AutoAim      = new frc.robot.commands.autonomous.AutoAim(sub_DriveTrain, sub_Limelight);
   private final frc.robot.commands.ArmDown      cmd_ArmDown      = new frc.robot.commands.ArmDown(sub_BallTrack);
+  private final frc.robot.commands.autonomous.AutoShoot cmd_AutoShoot (double time) {return new frc.robot.commands.autonomous.AutoShoot(sub_BallTrack, time);}
   
   private final Map<RobotState, ParallelCommandGroup> stateCommands = new HashMap<>();
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -46,11 +48,14 @@ public class RobotContainer {
     });
     //#endregion
     //#region Setup command groups
-    double s = 0.25;
-    stateCommands.put(RobotState.Auto, new ParallelCommandGroup(
+      stateCommands.put(RobotState.Auto, new ParallelCommandGroup(
       new SequentialCommandGroup(
         new WaitCommand(1),
-        cmd_AutoAim
+        new ParallelCommandGroup(
+          cmd_AutoDrive(0.8, 0, 1.4),
+          cmd_AutoShoot(5)
+        )
+        // cmd_AutoAim
       )
     ));
     stateCommands.put(RobotState.Teleop, new ParallelCommandGroup(
@@ -75,6 +80,8 @@ public class RobotContainer {
     }
     if (s == RobotState.Teleop) {
       sub_BallTrack.m_arm.setSelectedSensorPosition(0);
+    } else if (s == RobotState.Auto) {
+      sub_DriveTrain.dd.setSafetyEnabled(true);
     }
   }
 }
