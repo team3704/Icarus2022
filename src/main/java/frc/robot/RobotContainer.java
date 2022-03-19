@@ -28,6 +28,7 @@ public class RobotContainer {
 
   private final frc.robot.commands.Shoot        cmd_Shoot        = new frc.robot.commands.Shoot(sub_BallTrack);
   private final frc.robot.commands.TankDrive    cmd_TankDrive    = new frc.robot.commands.TankDrive(sub_DriveTrain);
+  private final frc.robot.commands.ArcadeDrive  cmd_ArcadeDrive  = new frc.robot.commands.ArcadeDrive(sub_DriveTrain);
   private final frc.robot.commands.SetLL        cmd_SetLL        (NetworkTableEntry entry, Integer value) { return new frc.robot.commands.SetLL(sub_Limelight, entry, value); }
   private final frc.robot.commands.autonomous.AutoDrive    cmd_AutoDrive    (double x, double z, double time) { return new frc.robot.commands.autonomous.AutoDrive(sub_DriveTrain, x, z, time); }
   private final frc.robot.commands.ControlArm   cmd_ControlArm   = new frc.robot.commands.ControlArm(sub_BallTrack);
@@ -60,7 +61,7 @@ public class RobotContainer {
       )
     ));
     stateCommands.put(RobotState.Teleop, new ParallelCommandGroup(
-      cmd_TankDrive, cmd_ControlArm, cmd_ControlClimb, cmd_Shoot
+      cmd_ArcadeDrive, cmd_ControlArm, cmd_ControlClimb, cmd_Shoot
     ));
     //#endregion
   }
