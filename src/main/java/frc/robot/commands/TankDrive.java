@@ -16,17 +16,20 @@ public class TankDrive extends CommandBase {
         s_dt.dd.setSafetyEnabled(false); // screw safety
     }
     @Override public void execute() {
-        if (UserInput.j_flightLeft.getRawButtonPressed(3)) reverse ^= true;
-        double leftSpeed = UserInput.j_flightLeft.getY();
-        double rightSpeed = UserInput.j_flightRight.getY();
+        if (
+            UserInput.j_flightLeft.getRawButtonPressed(3) ||
+            UserInput.j_flightRight.getRawButtonPressed(3)
+        ) reverse ^= true;
+        double leftSpeed = UserInput.j_flightLeft.getY() * (reverse ? -1 : 1);
+        double rightSpeed = UserInput.j_flightRight.getY() * (reverse ? -1 : 1);
         double zAxisPercent = (-UserInput.j_flightRight.getZ() + 1) / 2d;
-        s_dt.driveSpeed = (Math.round(zAxisPercent * 10) / 10d) * (reverse ? -1 : 1); // decrease precision of speed control
+        s_dt.driveSpeed = (Math.round(zAxisPercent * 25) / 25d); // decrease precision of speed control
         s_dt.dd.setDeadband(0.05);
         s_dt.dd.tankDrive(leftSpeed, rightSpeed, true);
     }
     @Override public void end(boolean interrupted) {
         s_dt.dd.tankDrive(0, 0);
         s_dt.dd.setDeadband(0);
-        s_dt.dd.setSafetyEnabled(true);
+        reverse = false;
     }
 }

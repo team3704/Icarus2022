@@ -8,8 +8,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.wpilibj2.command.*;
-import frc.robot.subsystems.BallTrack;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -50,9 +51,9 @@ public class RobotContainer {
     //#region Setup command groups
       stateCommands.put(RobotState.Auto, new ParallelCommandGroup(
       new SequentialCommandGroup(
-        new WaitCommand(1),
+        new WaitCommand(0.5),
         new ParallelCommandGroup(
-          cmd_AutoDrive(0.8, 0, 1.4),
+          cmd_AutoDrive(-0.8, 0, 1.9),
           cmd_AutoShoot(5)
         )
         // cmd_AutoAim
@@ -71,7 +72,9 @@ public class RobotContainer {
    */
   public void setState(RobotState s) {
     sub_BallTrack.arm_target_position = 0;
-    if (mainCommand != null) mainCommand.cancel();
+    if (mainCommand != null) {
+      mainCommand.cancel();
+    }
     if (s == null) {
       System.out.println("Robot disabled. (state = null)");
     } else {
@@ -81,7 +84,7 @@ public class RobotContainer {
     if (s == RobotState.Teleop) {
       sub_BallTrack.m_arm.setSelectedSensorPosition(0);
     } else if (s == RobotState.Auto) {
-      sub_DriveTrain.dd.setSafetyEnabled(true);
+      
     }
   }
 }
