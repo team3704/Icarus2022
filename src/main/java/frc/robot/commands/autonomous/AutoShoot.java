@@ -19,7 +19,7 @@ public class AutoShoot extends CommandBase {
     }
     @Override public void execute() {
         ballTrack.shooter_speed = 0.8;
-        if(timer.get() > time / 2 || time < 3) {
+        if(timer.get() > time / 2.4 || time < 3) {
             ballTrack.feed_speed = 1;
         }
     }    
